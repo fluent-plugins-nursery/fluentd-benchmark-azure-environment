@@ -5,6 +5,10 @@ provider "azurerm" {
   features {}
 }
 
+provider "local" {
+  version = "~>1.4"
+}
+
 resource "azurerm_resource_group" "fluentd" {
   name     = "fluentdBeckmarkResourceGroup"
   location = var.region
