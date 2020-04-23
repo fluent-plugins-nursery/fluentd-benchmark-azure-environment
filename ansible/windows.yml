@@ -1,0 +1,14 @@
+---
+- hosts: windows
+  vars:
+    td_agent_version: "3.7.0-0"
+  tasks:
+    - name: Install td-agent
+      win_package:
+        path="http://packages.treasuredata.com.s3.amazonaws.com/3/windows/td-agent-{{ td_agent_version }}-x64.msi"
+        Product_Id="76dcb0b2-81ad-4a07-bf3b-1db567594171"
+        arguments="/q"
+    - name: Copy collector configuration
+      win_copy:
+        src: ./config/fluent-collector.conf
+        dest: C:\opt\td-agent\fluent-collector.conf
