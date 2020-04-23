@@ -1,0 +1,8 @@
+env.sh
+*.tfvars
+.terraform
+/azure_key/*.pub
+/ansible/hosts
+*.tfstate*
+.DS_Store
+/management
