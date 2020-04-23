@@ -7,3 +7,4 @@ variable "linux-password" {}
 variable "region" {}
 variable "windows-username" {}
 variable "windows-password" {}
+variable "ssh-private-key-path" {}

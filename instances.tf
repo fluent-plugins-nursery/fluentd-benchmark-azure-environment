@@ -105,4 +105,14 @@ resource "azurerm_virtual_machine" "win10collector" {
     CreatedBy = var.windows-username
     Purpose   = "Collect Windows EventLog Benchmark"
   }
+
+  connection {
+    host     = azurerm_public_ip.collector.ip_address
+    type     = "winrm"
+    port     = 5985
+    https    = false
+    timeout  = "2m"
+    user     = var.windows-username
+    password = var.windows-password
+  }
 }

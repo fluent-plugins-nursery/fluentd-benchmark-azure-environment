@@ -31,5 +31,10 @@ ansible_winrm_server_cert_validation=ignore
 
 [aggregator]
 ${data.azurerm_public_ip.aggregator.ip_address}
+
+[aggregator:vars]
+ansible_port=22
+ansible_user=${var.linux-username}
+ansible_ssh_private_key_file=${var.ssh-private-key-path}
 EOL
 }
