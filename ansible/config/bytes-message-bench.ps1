@@ -1,6 +1,7 @@
 Param(
     [string]$workdir = "C:\tools",
-    [parameter(mandatory=$true)][int32]$Length
+    [parameter(mandatory=$true)][int32]$Length,
+    [int32]$Total = 120000
 )
 
 $ENV:PATH="C:\opt\td-agent\embedded\bin;" + $ENV:PATH
@@ -13,7 +14,7 @@ Start-Sleep 5
 
 $type_perf_job = Start-Process typeperf -ArgumentList "-cf", "counters.txt", "-sc", "2400", "-si", "1" -PassThru -RedirectStandardOutput C:\tools\${msg_length}-resource-usage.txt
 
-Start-Process C:\tools\EventLogBencher\EventLogBencher.exe -ArgumentList "-w", "50", "-t", "120000", "-l", "$Length" -Wait -NoNewWindow
+Start-Process C:\tools\EventLogBencher\EventLogBencher.exe -ArgumentList "-w", "50", "-t", "$Total", "-l", "$Length" -Wait -NoNewWindow
 
 Stop-Process -Id $fluentd_job.Id
 Stop-Process -Id $type_perf_job.Id
