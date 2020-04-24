@@ -22,3 +22,6 @@
         src: C:\terraform\EventLogBencher.zip
         dest: C:\tools\EventLogBencher
         delete_archive: yes
+    # Just for creating benchmark channel
+    - name: Create Benchmark channel
+      win_shell: C:\tools\EventLogBencher\EventLogBencher.exe -w 0 -t 1 -l 512
