@@ -18,6 +18,13 @@
       apt: deb="/home/{{ ansible_env.USER }}/td-agent_{{ td_agent_version }}_amd64.deb"
       when: td_agent_check_deb.rc == 1
     - name: Copy aggregator configuration
+      become: true
       copy:
         src: ./config/fluent-aggregator.conf
-        dest: /home/{{ ansible_env.USER }}/fluent-aggregator.conf
+        dest: /etc/td-agent/td-agent.conf
+    - name: Make sure a td-agent service is restarted
+      become: true
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: td-agent
