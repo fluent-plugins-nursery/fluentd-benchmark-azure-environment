@@ -13,7 +13,7 @@
       win_copy:
         src: ./config/fluent-collector.conf
         dest: C:\opt\td-agent\fluent-collector.conf
-    - name: Copy counters.txt
+    - name: Check EventLog benchmarking tool existence
       win_stat:
         path: C:\tools\EventLogBencher\EventLogBencher.exe
       register: eventlog_bencher_check
