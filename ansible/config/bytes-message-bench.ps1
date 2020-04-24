@@ -10,7 +10,7 @@ Start-Sleep 5
 
 $type_perf_job = Start-Process typeperf -ArgumentList "-cf", "counters.txt", "-sc", "2400", "-si", "1" -PassThru -RedirectStandardOutput C:\tools\${msg_length}-resource-usage.txt
 
-C:\tools\EventLogBencher\EventLogBencher.exe -w 50 -t 120000 -l $msg_length
+Start-Process C:\tools\EventLogBencher\EventLogBencher.exe -ArgumentList "-w", "50", "-t", "120000", "-l", "$msg_length" -Wait -NoNewWindow
 
 Stop-Process -Id $fluentd_job.Id
 Stop-Process -Id $type_perf_job.Id
