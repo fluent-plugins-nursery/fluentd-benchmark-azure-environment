@@ -2,6 +2,7 @@
 - hosts: windows
   vars:
     td_agent_version: "3.7.0-0"
+    eventlog_bencher_version: "v0.3.1.1"
   tasks:
     - name: Install td-agent
       win_package:
@@ -12,3 +13,12 @@
       win_copy:
         src: ./config/fluent-collector.conf
         dest: C:\opt\td-agent\fluent-collector.conf
+    - name: Install EventLog benchmarking tool
+      win_get_url:
+        url: https://github.com/cosmo0920/EventLogBencher/releases/download/{{ eventlog_bencher_version }}/EventLogBencher.zip
+        dest: C:\terraform\EventLogBencher.zip
+    - name: Decompress zip file
+      win_unzip:
+        src: C:\terraform\EventLogBencher.zip
+        dest: C:\tools\EventLogBencher
+        delete_archive: yes
