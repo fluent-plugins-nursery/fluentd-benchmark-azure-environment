@@ -49,12 +49,12 @@ resource "azurerm_virtual_machine" "aggregator" {
 }
 
 resource "azurerm_virtual_machine" "win10collector" {
-  name                           = "${var.prefix}-collector-win10-vm"
-  location                       = azurerm_resource_group.fluentd.location
-  resource_group_name            = azurerm_resource_group.fluentd.name
-  network_interface_ids          = [azurerm_network_interface.collector.id]
-  vm_size                        = "Standard_B2S"
-  delete_os_disk_on_termination  = true
+  name                             = "${var.prefix}-collector-win10-vm"
+  location                         = azurerm_resource_group.fluentd.location
+  resource_group_name              = azurerm_resource_group.fluentd.name
+  network_interface_ids            = [azurerm_network_interface.collector.id]
+  vm_size                          = "Standard_B2S"
+  delete_os_disk_on_termination    = true
   delete_data_disks_on_termination = true
 
   storage_image_reference {
@@ -81,7 +81,7 @@ resource "azurerm_virtual_machine" "win10collector" {
 
   os_profile_windows_config {
     enable_automatic_upgrades = true
-    provision_vm_agent = true
+    provision_vm_agent        = true
     winrm {
       protocol = "http"
     }
