@@ -5,6 +5,7 @@ Fluentd Benchmark Azure Environment with Terraform
 
 * Terraform 0.12+
 * Ansible 2.9+
+* make
 
 ## Setup
 
@@ -15,12 +16,14 @@ Fluentd Benchmark Azure Environment with Terraform
 
 ## Usage
 
-```
-$ terraform plan
-```
-
-and then,
+For creating instances:
 
 ```
-$ terraform apply
+$ make
+```
+
+For destroying instances:
+
+```
+$ make clean
 ```
