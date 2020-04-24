@@ -10,6 +10,6 @@ provider "local" {
 }
 
 resource "azurerm_resource_group" "fluentd" {
-  name     = "fluentdBeckmarkResourceGroup"
+  name     = "fluentdBenchmarkResourceGroup"
   location = var.region
 }
