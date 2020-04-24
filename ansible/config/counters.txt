@@ -1,0 +1,6 @@
+"Process(ruby*)\% Processor Time"
+"Process(ruby*)\Working Set"
+"\Network Interface(*)\Bytes Sent/sec"
+"\Network Interface(*)\Bytes Received/sec"
+"\PhysicalDisk(_Total)\Disk Reads/sec"
+"\PhysicalDisk(_Total)\Disk Writes/sec"

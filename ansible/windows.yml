@@ -13,15 +13,29 @@
       win_copy:
         src: ./config/fluent-collector.conf
         dest: C:\opt\td-agent\fluent-collector.conf
+    - name: Copy counters.txt
+      win_stat:
+        path: C:\tools\EventLogBencher\EventLogBencher.exe
+      register: eventlog_bencher_check
     - name: Install EventLog benchmarking tool
       win_get_url:
         url: https://github.com/cosmo0920/EventLogBencher/releases/download/{{ eventlog_bencher_version }}/EventLogBencher.zip
         dest: C:\terraform\EventLogBencher.zip
+      when: not eventlog_bencher_check.stat.exists
     - name: Decompress zip file
       win_unzip:
         src: C:\terraform\EventLogBencher.zip
         dest: C:\tools\EventLogBencher
         delete_archive: yes
+      when: not eventlog_bencher_check.stat.exists
     # Just for creating benchmark channel
     - name: Create Benchmark channel
       win_shell: C:\tools\EventLogBencher\EventLogBencher.exe -w 0 -t 1 -l 512
+    - name: Copy counters.txt
+      win_copy:
+        src: ./config/counters.txt
+        dest: C:\tools\counters.txt
+    - name: Copy benchmark scripts
+      win_copy:
+        src: ./config/bytes-message-bench.ps1
+        dest: C:\tools\bytes-message-bench.ps1
