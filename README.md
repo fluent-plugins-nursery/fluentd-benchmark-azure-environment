@@ -27,3 +27,7 @@ For destroying instances:
 ```
 $ make clean
 ```
+
+## License
+
+[MIT](LICENSE).
