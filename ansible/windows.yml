@@ -39,3 +39,7 @@
       win_copy:
         src: ./config/bytes-message-bench.ps1
         dest: C:\tools\bytes-message-bench.ps1
+    - name: Copy socket stat script
+      win_copy:
+        src: ./config/socket-count.ps1
+        dest: C:\tools\socket-count.ps1

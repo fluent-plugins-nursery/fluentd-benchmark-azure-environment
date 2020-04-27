@@ -14,7 +14,10 @@ Start-Sleep 5
 
 $type_perf_job = Start-Process typeperf -ArgumentList "-cf", "counters.txt", "-sc", "2400", "-si", "1" -PassThru -RedirectStandardOutput C:\tools\${Length}-resource-usage.txt
 
+$socket_count_job = Start-Process powershell -ArgumentList "-ExecutionPolicy", "RemoteSigned", C:\tools\socket-count.ps1 -PassThru -NoNewWindow -RedirectStandardOutput C:\tools\${Length}-socket-usage.txt
+
 Start-Process C:\tools\EventLogBencher\EventLogBencher.exe -ArgumentList "-w", "50", "-t", "$Total", "-l", "$Length" -Wait -NoNewWindow
 
 Stop-Process -Id $fluentd_job.Id
 Stop-Process -Id $type_perf_job.Id
+Stop-Process -Id $socket_count_job.Id
