@@ -1,7 +1,7 @@
 ---
 - hosts: aggregator
   vars:
-    td_agent_version: "3.7.0-0"
+    td_agent_version: "3.7.1-0"
   tasks:
     - name: Check if td-agent is installed
       command: dpkg-query -W td-agent
