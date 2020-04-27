@@ -13,9 +13,14 @@
         url="http://packages.treasuredata.com.s3.amazonaws.com/3/ubuntu/xenial/pool/contrib/t/td-agent/td-agent_{{ td_agent_version }}_amd64.deb"
         dest="/home/{{ ansible_env.USER }}/td-agent_{{ td_agent_version }}_amd64.deb"
       when: td_agent_check_deb.rc == 1
+    - name: Install python-apt
+      become: true
+      apt:
+        name: python-apt
     - name: Install td-agent
       become: true
-      apt: deb="/home/{{ ansible_env.USER }}/td-agent_{{ td_agent_version }}_amd64.deb"
+      apt:
+        deb: /home/{{ ansible_env.USER }}/td-agent_{{ td_agent_version }}_amd64.deb
       when: td_agent_check_deb.rc == 1
     - name: Copy aggregator configuration
       become: true
