@@ -14,6 +14,6 @@ provider "null" {
 }
 
 resource "azurerm_resource_group" "fluentd" {
-  name     = "fluentdBenchmarkResourceGroup"
+  name     = var.resource-group
   location = var.region
 }

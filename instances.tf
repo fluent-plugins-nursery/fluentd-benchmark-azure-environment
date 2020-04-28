@@ -1,10 +1,3 @@
-locals {
-  run_ps_commands = <<-EOT
-    powershell -Command "Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1"
-    powershell -Command "powershell ConfigureRemotingForAnsible.ps1"
-    powershell -Command "Remove-Item -path ConfigureRemotingForAnsible.ps1 -force"
-  EOT
-}
 resource "azurerm_virtual_machine" "aggregator" {
   name                  = "${var.prefix}-aggregator-vm"
   location              = azurerm_resource_group.fluentd.location

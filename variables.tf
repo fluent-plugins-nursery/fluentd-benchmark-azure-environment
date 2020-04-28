@@ -8,3 +8,4 @@ variable "region" {}
 variable "windows-username" {}
 variable "windows-password" {}
 variable "ssh-private-key-path" {}
+variable "resource-group" {}
