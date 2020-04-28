@@ -33,7 +33,7 @@ resource "azurerm_virtual_machine" "aggregator" {
 
     ssh_keys {
       path     = "/home/${var.linux-username}/.ssh/authorized_keys"
-      key_data = file("azure_key/id_rsa_azure.pub")
+      key_data = file("../azure_key/id_rsa_azure.pub")
     }
   }
   tags = {

@@ -6,4 +6,4 @@ env.sh
 *.tfstate*
 .DS_Store
 /management
-/ansible/output/
+/winevtlog_bench/ansible/output/

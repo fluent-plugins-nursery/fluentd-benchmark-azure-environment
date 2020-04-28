@@ -16,6 +16,14 @@ Fluentd Benchmark Azure Environment with Terraform
 
 ## Usage
 
+### Windows EventLog Scenario Benchmark
+
+```
+$ cd winevtlog_bench
+```
+
+And then,
+
 For creating instances:
 
 ```
