@@ -2,7 +2,7 @@ env.sh
 *.tfvars
 .terraform
 /azure_key/*.pub
-/ansible/hosts
+/winevtlog_bench/ansible/hosts
 *.tfstate*
 .DS_Store
 /management
