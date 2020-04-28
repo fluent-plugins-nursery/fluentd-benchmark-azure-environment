@@ -1,0 +1,20 @@
+---
+- hosts: windows
+  tasks:
+    - name: Run 512 bytes message length benchmark
+      win_shell: C:\tools\bytes-message-bench.ps1 -Length 512 -Total 120000
+    - name: Run 1024 bytes message length benchmark
+      win_shell: C:\tools\bytes-message-bench.ps1 -Length 1024 -Total 120000
+    - name: Run 2048 bytes message length benchmark
+      win_shell: C:\tools\bytes-message-bench.ps1 -Length 2048 -Total 120000
+    - name: Find benchmarking result files
+      win_find:
+        paths: C:\tools\
+        patterns: [ '*.csv' ]
+      register: file_list
+
+    - name: fetch result files in directory
+      fetch:
+        src: C:\tools\{{ item.filename }}
+        dest: ./output
+      with_items: "{{ file_list.files }}"

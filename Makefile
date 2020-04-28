@@ -15,3 +15,6 @@ windows-provision:
 
 aggregator-provision:
 	ansible-playbook -i ./ansible/hosts ./ansible/aggregator.yml
+
+windows-bench:
+	ansible-playbook -i ./ansible/hosts ./ansible/windows-bench.yml
