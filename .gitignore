@@ -3,7 +3,9 @@ env.sh
 .terraform
 /azure_key/*.pub
 /winevtlog_bench/ansible/hosts
+/winevtlog_bench/ansible/output/
+/in_tail_bench/ansible/hosts
+/in_tail_bench/ansible/output/
 *.tfstate*
 .DS_Store
 /management
-/winevtlog_bench/ansible/output/
