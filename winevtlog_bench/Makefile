@@ -8,6 +8,9 @@ clean:
 apply:
 	terraform apply -auto-approve
 
+plan:
+	terraform plan
+
 provision: windows-provision aggregator-provision
 
 windows-provision:
