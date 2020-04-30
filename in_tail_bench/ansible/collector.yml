@@ -22,3 +22,8 @@
       apt:
         deb: /home/{{ ansible_env.USER }}/td-agent_{{ td_agent_version }}_amd64.deb
       when: td_agent_check_deb.rc == 1
+    - name: Copy collector configuration
+      become: true
+      copy:
+        src: ./config/fluent-collector.conf
+        dest: /home/{{ ansible_env.USER }}/td-agent.conf
