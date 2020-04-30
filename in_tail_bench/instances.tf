@@ -1,5 +1,5 @@
 resource "azurerm_virtual_machine" "linux-aggregator" {
-  name                  = "${var.prefix}-aggregator-vm"
+  name                  = "${var.prefix}-aggregator-linux-vm"
   location              = azurerm_resource_group.fluentd-tail.location
   resource_group_name   = azurerm_resource_group.fluentd-tail.name
   network_interface_ids = [azurerm_network_interface.linux-aggregator.id]
