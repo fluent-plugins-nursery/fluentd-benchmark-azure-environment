@@ -62,3 +62,9 @@
         src: ./config/monitor.py
         dest: /usr/local/bin/monitor
         mode: 0755
+    - name: Copy benchmarking script
+      become: true
+      copy:
+        src: ./config/rate-tailing-bench.sh
+        dest: /usr/local/bin/rate-tailing-bench
+        mode: 0755
