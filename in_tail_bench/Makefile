@@ -18,3 +18,6 @@ collector-provision:
 
 aggregator-provision:
 	ansible-playbook -i ./ansible/hosts ./ansible/aggregator.yml
+
+tail-bench:
+	ansible-playbook -i ./ansible/hosts ./ansible/tail-bench.yml
