@@ -27,3 +27,38 @@
       copy:
         src: ./config/fluent-collector.conf
         dest: /home/{{ ansible_env.USER }}/td-agent.conf
+    - name: Make sure a td-agent service is stopped
+      become: true
+      systemd:
+        state: stopped
+        daemon_reload: yes
+        name: td-agent
+    - name: Install ruby and ruby-dev
+      become: true
+      apt:
+        name:
+          - ruby
+          - ruby-dev
+          - build-essential
+    - name: Install dummer via rubygems
+      become: true
+      gem:
+        name: dummer
+        state: latest
+        user_install: no
+    - name: Copy dummer configuration directory
+      become: true
+      copy:
+        src: ./config/dummer/
+        dest: /home/{{ ansible_env.USER }}/dummer/
+    - name: Install python3-psutil package
+      become: true
+      apt:
+        name:
+          - python3-psutil
+    - name: Copy monitoring script
+      become: true
+      copy:
+        src: ./config/monitor.py
+        dest: /usr/local/bin/monitor
+        mode: 0755
