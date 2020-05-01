@@ -79,4 +79,4 @@ sns.stripplot(x='variable', y='value', data=df_melt, jitter=False, color='black'
     ylabel='VMS Usage (MB)'
 )
 
-plt.show()
+plt.savefig('VMS_usage.png')

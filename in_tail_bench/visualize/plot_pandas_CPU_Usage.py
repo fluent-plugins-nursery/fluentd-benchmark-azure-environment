@@ -79,4 +79,4 @@ sns.stripplot(x='variable', y='value', data=df_melt, jitter=False, color='black'
     ylabel='CPU Usage (%)'
 )
 
-plt.show()
+plt.savefig('CPU_usage.png')

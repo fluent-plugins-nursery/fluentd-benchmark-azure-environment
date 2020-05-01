@@ -9,3 +9,4 @@ env.sh
 *.tfstate*
 .DS_Store
 /management
+*.png

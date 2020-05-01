@@ -79,4 +79,4 @@ sns.stripplot(x='variable', y='value', data=df_melt, jitter=False, color='black'
     ylabel='RSS Usage (MB)'
 )
 
-plt.show()
+plt.savefig('RSS_usage.png')

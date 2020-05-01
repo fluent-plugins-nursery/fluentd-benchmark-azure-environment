@@ -79,4 +79,4 @@ sns.stripplot(x='variable', y='value', data=df_melt, jitter=False, color='black'
     ylabel='PSS Usage (MB)'
 )
 
-plt.show()
+plt.savefig('PSS_usage.png')
