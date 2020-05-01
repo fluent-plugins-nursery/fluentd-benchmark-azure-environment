@@ -40,6 +40,14 @@
           - ruby
           - ruby-dev
           - build-essential
+    - name: Install Python libraries
+      become: true
+      apt:
+        name:
+          - python-pip
+          - python-setuptools
+          - python3-pip
+          - python3-setuptools
     - name: Install dummer via rubygems
       become: true
       gem:
@@ -53,9 +61,10 @@
         dest: /home/{{ ansible_env.USER }}/dummer/
     - name: Install python3-psutil package
       become: true
-      apt:
+      pip:
+        executable: pip3
         name:
-          - python3-psutil
+          - psutil
     - name: Copy monitoring script
       become: true
       copy:
