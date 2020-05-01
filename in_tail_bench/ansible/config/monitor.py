@@ -10,8 +10,9 @@ parser.add_argument("steps", help="Total running seconds",
                     type=int)
 args = parser.parse_args()
 
-_last_disk_io_cache = (0,0,0.0)
-_last_net_io_cache = (0,0,0.0)
+_last_disk_io_cache = (0, 0, 0.0)
+_last_net_io_cache = (0, 0, 0.0)
+
 
 def disk_io_metrics():
     global _last_disk_io_cache
@@ -30,6 +31,7 @@ def disk_io_metrics():
     _last_disk_io_cache = (read_bytes, write_bytes, tm)
     return write_speed, read_speed
 
+
 def net_io_metrics():
     global _last_net_io_cache
 
@@ -47,6 +49,7 @@ def net_io_metrics():
     _last_net_io_meta = (send_bytes, recv_bytes, tm)
     return recv_speed, send_speed
 
+
 def memory_metrics():
     rss = 0
     pss = 0
@@ -63,7 +66,10 @@ def memory_metrics():
 
     return rss, pss, uss, vms
 
-print(f"steps\tdate\t{'RSS(MB)':8}\t{'PSS(MB)':8}\t{'USS(MB)':8}\t{'VMS(MB)':8}\t{'Total CPU Usage(%)':8}\tread bytes(/sec)\twrite bytes(/sec)\trecv bytes(/sec)\tsend bytes(/sec)")
+
+print(f"steps\tdate\t{'RSS(MB)':8}\t{'PSS(MB)':8}\
+\t{'USS(MB)':8}\t{'VMS(MB)':8}\t{'Total CPU Usage(%)':8}\
+\tread bytes(/sec)\twrite bytes(/sec)\trecv bytes(/sec)\tsend bytes(/sec)")
 steps = 1
 RUBY = "ruby"
 
@@ -76,7 +82,9 @@ while steps <= args.steps:
     write_speed, read_speed = disk_io_metrics()
     recv_speed, send_speed = net_io_metrics()
     time_str = now.strftime("%Y/%m/%d %H:%M:%S")
-    print(f"{steps}\t{time_str}\t{rss /1024/1024 :8}\t{pss /1024/1024 :8}\t{uss /1024/1024 :8}\t{vms /1024/1024 :8}\t{cpu:8}\t{read_speed}\t{write_speed}\t{recv_speed}\t{send_speed}")
+    print(f"{steps}\t{time_str}\t{rss /1024/1024 :8}\t{pss /1024/1024 :8}\
+\t{uss /1024/1024 :8}\t{vms /1024/1024 :8}\t{cpu:8}\
+\t{read_speed}\t{write_speed}\t{recv_speed}\t{send_speed}")
     steps = steps + 1
     while (int(currentTime) >= int(datetime.now().strftime("%s"))):
         time.sleep(0.01)
