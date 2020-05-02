@@ -65,7 +65,7 @@ for item in data_range:
 sns.stripplot(x='variable', y='value', data=df_melt, jitter=False, color='black', ax=ax
 ).set(
     xlabel='message length (bytes)',
-    ylabel='Weorking Set (MB)'
+    ylabel='Working Set (MB)'
 )
 
 plt.savefig('Working_Set_usage.png')
