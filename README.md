@@ -36,6 +36,26 @@ For destroying instances:
 $ make clean
 ```
 
+### in\_tail Scenario Benchmark
+
+```
+$ cd in_tail_bench
+```
+
+And then,
+
+For creating instances:
+
+```
+$ make
+```
+
+For destroying instances:
+
+```
+$ make clean
+```
+
 ## License
 
 [MIT](LICENSE).
