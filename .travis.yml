@@ -1,0 +1,16 @@
+env:
+  - tf_version=0.12.18 tf_dir=winevtlog_bench
+  - tf_version=0.12.18 tf_dir=in_tail_bench
+
+language: bash
+
+before_install:
+  - wget https://releases.hashicorp.com/terraform/${tf_version}/terraform_${tf_version}_linux_amd64.zip -O /tmp/terraform.zip
+  - sudo unzip -d /usr/local/bin/ /tmp/terraform.zip
+
+script:
+  - cp ./tests/id_ecdsa_dummy_key.pub ./azure_key/id_rsa_azure.pub
+  - cd $tf_dir
+  - mv terraform.tfvars.sample terraform.tfvars
+  - terraform init
+  - terraform validate
