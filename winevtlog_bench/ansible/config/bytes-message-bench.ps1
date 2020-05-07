@@ -16,7 +16,7 @@ Start-Process typeperf -ArgumentList "-cf", "counters.txt", "-sc", "2400", "-si"
 
 $socket_count_job = Start-Process powershell -ArgumentList "-ExecutionPolicy", "RemoteSigned", C:\tools\socket-count.ps1 -PassThru -NoNewWindow -RedirectStandardOutput C:\tools\${Length}-socket-usage.csv
 
-Start-Process C:\tools\EventLogBencher\EventLogBencher.exe -ArgumentList "-w", "50", "-t", "$Total", "-l", "$Length" -Wait -NoNewWindow
+Start-Process C:\tools\EventLogBencher\EventLogBencher.exe -ArgumentList "wait", "-w", "50", "-t", "$Total", "-l", "$Length" -Wait -NoNewWindow
 
 Stop-Process -Id $socket_count_job.Id
 taskkill /F /IM ruby.exe

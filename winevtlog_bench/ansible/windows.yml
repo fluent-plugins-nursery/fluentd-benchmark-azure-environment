@@ -2,7 +2,7 @@
 - hosts: windows
   vars:
     td_agent_version: "3.7.1-0"
-    eventlog_bencher_version: "v0.3.1.1"
+    eventlog_bencher_version: "v0.4.0.0"
   tasks:
     - name: Install td-agent
       win_package:
@@ -45,7 +45,7 @@
       when: not proc_exp_check.stat.exists
     # Just for creating benchmark channel
     - name: Create Benchmark channel
-      win_shell: C:\tools\EventLogBencher\EventLogBencher.exe -w 0 -t 1 -l 512
+      win_shell: C:\tools\EventLogBencher\EventLogBencher.exe wait -w 0 -t 1 -l 512
     - name: Copy counters.txt
       win_copy:
         src: ./config/counters.txt
