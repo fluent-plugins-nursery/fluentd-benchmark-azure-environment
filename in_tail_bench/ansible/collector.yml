@@ -52,7 +52,8 @@
       become: true
       gem:
         name: dummer
-        state: latest
+        version: 0.4.1
+        state: present
         user_install: no
     - name: Copy dummer configuration directory
       become: true
