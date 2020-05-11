@@ -28,6 +28,21 @@
         dest: C:\tools\EventLogBencher
         delete_archive: yes
       when: not eventlog_bencher_check.stat.exists
+    - name: Check Appending file benchmarking tool existence
+      win_stat:
+        path: C:\tools\FileLoggingBencher\FileLoggingBencher.exe
+      register: appending_file_bencher_check
+    - name: Install Appending file benchmarking tool
+      win_get_url:
+        url: https://github.com/cosmo0920/EventLogBencher/releases/download/{{ eventlog_bencher_version }}/FileLoggingBencher.zip
+        dest: C:\terraform\FileLoggingBencher.zip
+      when: not appending_file_bencher_check.stat.exists
+    - name: Decompress appending file benchmark tool zip file
+      win_unzip:
+        src: C:\terraform\FileLoggingBencher.zip
+        dest: C:\tools\FileLoggingBencher
+        delete_archive: yes
+      when: not appending_file_bencher_check.stat.exists
     - name: Check Process Explorer existence
       win_stat:
         path: C:\tools\procexp64.exe
