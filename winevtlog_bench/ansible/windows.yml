@@ -13,6 +13,10 @@
       win_copy:
         src: ./config/fluent-collector.conf
         dest: C:\opt\td-agent\fluent-collector.conf
+    - name: Copy collector with tailing configuration
+      win_copy:
+        src: ./config/fluent-collector-with-tailing.conf
+        dest: C:\opt\td-agent\fluent-collector-with-tailing.conf
     - name: Check EventLog benchmarking tool existence
       win_stat:
         path: C:\tools\EventLogBencher\EventLogBencher.exe
