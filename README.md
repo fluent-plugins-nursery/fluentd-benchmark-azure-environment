@@ -30,6 +30,18 @@ For creating instances:
 $ make
 ```
 
+Or, only creating instances:
+
+```
+$ make apply
+```
+
+And apply provisioning playbook:
+
+```
+% make provision
+```
+
 For destroying instances:
 
 ```
@@ -48,6 +60,18 @@ For creating instances:
 
 ```
 $ make
+```
+
+Or, only creating instances:
+
+```
+$ make apply
+```
+
+And apply provisioning playbook:
+
+```
+% make provision
 ```
 
 For destroying instances:
