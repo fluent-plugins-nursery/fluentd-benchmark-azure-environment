@@ -1,6 +1,8 @@
 Fluentd Benchmark Azure Environment with Terraform
 ===
 
+[![Build Status](https://travis-ci.com/cosmo0920/fluentd-benchmark-azure-environment.svg?branch=master)](https://travis-ci.com/cosmo0920/fluentd-benchmark-azure-environment)
+
 ## Prerequisites
 
 * Terraform 0.12+
