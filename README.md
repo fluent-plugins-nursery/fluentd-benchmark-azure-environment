@@ -42,7 +42,7 @@ $ make apply
 And apply provisioning playbook:
 
 ```
-% make provision
+$ make provision
 ```
 
 For destroying instances:
@@ -74,7 +74,7 @@ $ make apply
 And apply provisioning playbook:
 
 ```
-% make provision
+$ make provision
 ```
 
 For destroying instances:
