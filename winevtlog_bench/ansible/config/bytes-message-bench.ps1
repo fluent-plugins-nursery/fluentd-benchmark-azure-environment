@@ -10,7 +10,13 @@ cd $workdir
 
 Start-Process fluentd -ArgumentList "-c", "C:\opt\td-agent\fluent-collector.conf", "-o", "C:\opt\td-agent\message-$Length-bytes.log" -NoNewWindow -PassThru
 
-Start-Sleep 5
+while ($true) {
+    $count = (Get-Process -Name ruby -ErrorAction SilentlyContinue).Count
+    if ($count -ge 2) {
+        break
+    }
+    Start-Sleep 1
+}
 
 Start-Process typeperf -ArgumentList "-cf", "counters.txt", "-sc", "2400", "-si", "1" -PassThru -RedirectStandardOutput C:\tools\${Length}-resource-usage.csv
 
