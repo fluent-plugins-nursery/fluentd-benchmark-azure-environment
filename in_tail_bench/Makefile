@@ -25,16 +25,16 @@ tail-bench:
 visualize: visualize-cpu visualize-pss visualize-rss visualize-uss visualize-vms
 
 visualize-cpu:
-	python3 visualize/plot_pandas_CPU_Usage.py
+	python3 visualize/plot_pandas_Usage.py --resource cpu
 
 visualize-pss:
-	python3 visualize/plot_pandas_PSS_Usage.py
+	python3 visualize/plot_pandas_Usage.py --resource pss
 
 visualize-rss:
-	python3 visualize/plot_pandas_RSS_Usage.py
+	python3 visualize/plot_pandas_Usage.py --resource rss
 
 visualize-uss:
-	python3 visualize/plot_pandas_USS_Usage.py
+	python3 visualize/plot_pandas_Usage.py --resource uss
 
 visualize-vms:
-	python3 visualize/plot_pandas_VMS_Usage.py
+	python3 visualize/plot_pandas_Usage.py --resource vms
