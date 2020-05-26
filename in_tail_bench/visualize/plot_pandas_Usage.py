@@ -12,7 +12,8 @@ from ansible.inventory.manager import InventoryManager
 
 parser = argparse.ArgumentParser(description='Visualize data as plot')
 parser.add_argument('--resource',
-                    choices=['cpu', 'pss', 'uss', 'rss', 'vms'],
+                    choices=['cpu', 'pss', 'uss', 'rss', 'vms', 'read_bytes', 'write_bytes',
+                             'recv_bytes', 'send_bytes'],
                     default='cpu')
 args = parser.parse_args()
 
@@ -56,7 +57,38 @@ elif args.resource == 'vms':
     fig_title = 'VMS Usage'
     fig_name = 'VMS_usage.png'
     divide_base = -1
-
+elif args.resource == 'read_bytes':
+    resource_key = "read bytes(/sec)"
+    xlabel_message = 'flow rate (lines/second)'
+    ylabel_message = 'Disk Read Usage (bytes)'
+    ylimit = 1200
+    fig_title = 'Disk Read Usage'
+    fig_name = 'Disk_Read_usage.png'
+    divide_base = -1
+elif args.resource == 'write_bytes':
+    resource_key = "write bytes(/sec)"
+    xlabel_message = 'flow rate (lines/second)'
+    ylabel_message = 'Disk Write Usage (KiB)'
+    ylimit = 1200
+    fig_title = 'Disk Write Usage'
+    fig_name = 'Disk_Write_usage.png'
+    divide_base = 1024
+elif args.resource == 'recv_bytes':
+    resource_key = "recv bytes(/sec)"
+    xlabel_message = 'flow rate (lines/second)'
+    ylabel_message = 'Receive Usage'
+    ylimit = 10
+    fig_title = 'Receive Bytes Usage'
+    fig_name = 'Receive_Bytes_usage.png'
+    divide_base = -1
+elif args.resource == 'send_bytes':
+    resource_key = "send bytes(/sec)"
+    xlabel_message = 'flow rate (lines/second)'
+    ylabel_message = 'Send Usage'
+    ylimit = 10
+    fig_title = 'Send Bytes Usage'
+    fig_name = 'Send_Bytes_usage.png'
+    divide_base = -1
 
 pwd = os.path.dirname(os.path.realpath(__file__))
 inventory_file_name = os.path.join(pwd, '..', 'ansible/hosts')

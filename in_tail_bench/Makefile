@@ -22,7 +22,7 @@ aggregator-provision:
 tail-bench:
 	ansible-playbook -i ./ansible/hosts ./ansible/tail-bench.yml
 
-visualize: visualize-cpu visualize-pss visualize-rss visualize-uss visualize-vms
+visualize: visualize-cpu visualize-pss visualize-rss visualize-uss visualize-vms visualize-read_bytes visualize-write_bytes visualize-recv_bytes visualize-send_bytes
 
 visualize-cpu:
 	python3 visualize/plot_pandas_Usage.py --resource cpu
@@ -38,3 +38,15 @@ visualize-uss:
 
 visualize-vms:
 	python3 visualize/plot_pandas_Usage.py --resource vms
+
+visualize-read_bytes:
+	python3 visualize/plot_pandas_Usage.py --resource read_bytes
+
+visualize-write_bytes:
+	python3 visualize/plot_pandas_Usage.py --resource write_bytes
+
+visualize-recv_bytes:
+	python3 visualize/plot_pandas_Usage.py --resource recv_bytes
+
+visualize-send_bytes:
+	python3 visualize/plot_pandas_Usage.py --resource send_bytes
