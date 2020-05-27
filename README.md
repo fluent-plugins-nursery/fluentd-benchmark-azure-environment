@@ -21,6 +21,8 @@ Fluentd Benchmark Azure Environment with Terraform
 
 ### Windows EventLog Scenario Benchmark
 
+#### Setup
+
 ```
 $ cd winevtlog_bench
 ```
@@ -45,6 +47,20 @@ And apply provisioning playbook:
 $ make provision
 ```
 
+#### Execute Benchmarks
+
+```
+$ make windows-bench
+```
+
+#### Visualization
+
+```
+$ make visualize
+```
+
+#### Teardown
+
 For destroying instances:
 
 ```
@@ -52,6 +68,8 @@ $ make clean
 ```
 
 ### in\_tail Scenario Benchmark
+
+#### Setup
 
 ```
 $ cd in_tail_bench
@@ -76,6 +94,20 @@ And apply provisioning playbook:
 ```
 $ make provision
 ```
+
+#### Execute Benchmarks
+
+```
+$ make tail-bench
+```
+
+#### Visualization
+
+```
+$ make visualize
+```
+
+#### Teardown
 
 For destroying instances:
 
