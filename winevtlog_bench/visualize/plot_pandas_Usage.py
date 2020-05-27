@@ -18,7 +18,7 @@ parser.add_argument('--resource',
 args = parser.parse_args()
 
 if args.resource == 'cpu':
-    resource_key = '\\\\fluentd-windows\\Process(ruby#1)\\% Processor Time'
+    resource_key = '\\\\fluentd-winserv\\Process(ruby#1)\\% Processor Time'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'CPU Usage (%)'
     ylimit = 100
@@ -26,7 +26,7 @@ if args.resource == 'cpu':
     fig_name = 'CPU_usage.png'
     divide_base = -1
 elif args.resource == 'memory':
-    resource_key = '\\\\fluentd-windows\\Process(ruby#1)\\Working Set'
+    resource_key = '\\\\fluentd-winserv\\Process(ruby#1)\\Working Set'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'Working Set (MB)'
     ylimit = 100
@@ -34,7 +34,7 @@ elif args.resource == 'memory':
     fig_name = 'Working_Set_usage.png'
     divide_base = 1024*1024
 elif args.resource == 'sent_bytes':
-    resource_key = '\\\\fluentd-windows\\Network Interface(Microsoft Hyper-V Network Adapter)\\Bytes Sent/sec'
+    resource_key = '\\\\fluentd-winserv\\Network Interface(Microsoft Hyper-V Network Adapter)\\Bytes Sent/sec'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'Bytes Sent (KiB/sec)'
     ylimit = 2000
@@ -42,7 +42,7 @@ elif args.resource == 'sent_bytes':
     fig_name = 'Bytes_Sent_usage.png'
     divide_base = 1024
 elif args.resource == 'received_bytes':
-    resource_key = '\\\\fluentd-windows\\Network Interface(Microsoft Hyper-V Network Adapter)\\Bytes Received/sec'
+    resource_key = '\\\\fluentd-winserv\\Network Interface(Microsoft Hyper-V Network Adapter)\\Bytes Received/sec'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'Bytes Received (KiB/sec)'
     ylimit = 2000
@@ -50,7 +50,7 @@ elif args.resource == 'received_bytes':
     fig_name = 'Bytes_Received_usage.png'
     divide_base = 1024
 elif args.resource == 'disk_reads':
-    resource_key = '\\\\fluentd-windows\\PhysicalDisk(_Total)\\Disk Reads/sec'
+    resource_key = '\\\\fluentd-winserv\\PhysicalDisk(_Total)\\Disk Reads/sec'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'Disk Read (bytes/sec)'
     ylimit = 1000
@@ -58,7 +58,7 @@ elif args.resource == 'disk_reads':
     fig_name = 'Disk_Read_usage.png'
     divide_base = -1
 elif args.resource == 'disk_writes':
-    resource_key = '\\\\fluentd-windows\\PhysicalDisk(_Total)\\Disk Writes/sec'
+    resource_key = '\\\\fluentd-winserv\\PhysicalDisk(_Total)\\Disk Writes/sec'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'Disk Write (bytes/sec)'
     ylimit = 1000

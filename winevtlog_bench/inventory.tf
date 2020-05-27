@@ -1,6 +1,6 @@
 data "azurerm_public_ip" "collector" {
   name                = azurerm_public_ip.collector.name
-  resource_group_name = azurerm_virtual_machine.win10collector.resource_group_name
+  resource_group_name = azurerm_virtual_machine.winserver-2019collector.resource_group_name
 }
 
 output "collector_public_ip_address" {

@@ -41,8 +41,8 @@ resource "azurerm_virtual_machine" "aggregator" {
   }
 }
 
-resource "azurerm_virtual_machine" "win10collector" {
-  name                             = "${var.prefix}-collector-win10-vm"
+resource "azurerm_virtual_machine" "winserver-2019collector" {
+  name                             = "${var.prefix}-collector-winserver-2019-vm"
   location                         = azurerm_resource_group.fluentd.location
   resource_group_name              = azurerm_resource_group.fluentd.name
   network_interface_ids            = [azurerm_network_interface.collector.id]
@@ -51,14 +51,14 @@ resource "azurerm_virtual_machine" "win10collector" {
   delete_data_disks_on_termination = true
 
   storage_image_reference {
-    publisher = "MicrosoftWindowsDesktop"
-    offer     = "Windows-10"
-    sku       = "19h1-pro"
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2019-Datacenter"
     version   = "latest"
   }
 
   storage_os_disk {
-    name              = "win10-disk1"
+    name              = "2019-datacenter-disk1"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
@@ -66,7 +66,7 @@ resource "azurerm_virtual_machine" "win10collector" {
   }
 
   os_profile {
-    computer_name  = "${var.prefix}-windows"
+    computer_name  = "${var.prefix}-winserv"
     admin_username = var.windows-username
     admin_password = var.windows-password
     custom_data    = file("./config/settings.ps1")
