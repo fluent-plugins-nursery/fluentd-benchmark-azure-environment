@@ -6,6 +6,8 @@ env.sh
 /winevtlog_bench/ansible/output/
 /in_tail_bench/ansible/hosts
 /in_tail_bench/ansible/output/
+/in_syslog_bench/ansible/hosts
+/in_syslog_bench/ansible/output/
 *.tfstate*
 .DS_Store
 /management

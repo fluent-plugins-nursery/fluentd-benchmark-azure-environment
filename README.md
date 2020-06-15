@@ -115,6 +115,36 @@ For destroying instances:
 $ make clean
 ```
 
+### in\_syslog Scenario Benchmark
+
+#### Setup
+
+```
+$ cd in_syslog_bench
+```
+
+And then,
+
+For creating instances:
+
+```
+$ make
+```
+
+Or, only creating instances:
+
+```
+$ make apply
+```
+
+#### Teardown
+
+For destroying instances:
+
+```
+$ make clean
+```
+
 ## License
 
 [MIT](LICENSE).
