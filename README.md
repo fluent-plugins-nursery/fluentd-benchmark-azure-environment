@@ -137,6 +137,12 @@ Or, only creating instances:
 $ make apply
 ```
 
+And apply provisioning playbook:
+
+```
+$ make provision
+```
+
 #### Teardown
 
 For destroying instances:

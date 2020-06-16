@@ -1,0 +1,60 @@
+---
+- hosts: collector
+  vars_files:
+    - version.yml
+  tasks:
+    - name: Download td-agent
+      get_url:
+        url: "http://packages.treasuredata.com.s3.amazonaws.com/3/redhat/7/x86_64/td-agent-{{ td_agent_version }}.el7.x86_64.rpm"
+        dest: "/home/{{ ansible_env.USER }}/td-agent-{{ td_agent_version }}.el7.x86_64.rpm"
+    - name: Install td-agent
+      become: true
+      yum:
+        name: /home/{{ ansible_env.USER }}/td-agent-{{ td_agent_version }}.el7.x86_64.rpm
+        state: present
+    - name: Copy collector configuration
+      become: true
+      copy:
+        src: ./config/fluent-collector.conf
+        dest: /home/{{ ansible_env.USER }}/td-agent.conf
+    - name: Copy certificates
+      become: true
+      copy:
+        src: ./config/certs/ca_cert.pem
+        dest: /etc/ssl/certs/ca_cert.pem
+    - name: Make sure a td-agent service is stopped
+      become: true
+      systemd:
+        state: stopped
+        daemon_reload: yes
+        name: td-agent
+    - name: Enable EPEL
+      become: true
+      yum:
+        name: epel-release
+        state: present
+    - name: Install syslog-ng
+      become: true
+      yum:
+        name: syslog-ng
+        state: present
+    - name: Install Development tools
+      become: true
+      yum:
+        name:
+          - "@Development tools"
+        state: present
+    - name: Install Python libraries
+      become: true
+      yum:
+        name:
+          - python-setuptools
+          - python3-pip
+          - python3-devel
+          - python3-setuptools
+    - name: Install python3-psutil package
+      become: true
+      pip:
+        executable: pip3
+        name:
+          - psutil

@@ -8,6 +8,9 @@ env.sh
 /in_tail_bench/ansible/output/
 /in_syslog_bench/ansible/hosts
 /in_syslog_bench/ansible/output/
+/in_syslog_bench/vendor/
+/in_syslog_bench/.bundle
+/in_syslog_bench/Gemfile.lock
 *.tfstate*
 .DS_Store
 /management
