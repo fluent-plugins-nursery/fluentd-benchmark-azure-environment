@@ -19,5 +19,8 @@ collector-provision:
 aggregator-provision:
 	ansible-playbook -i ./ansible/hosts ./ansible/aggregator.yml
 
+syslog-bench:
+	ansible-playbook -i ./ansible/hosts ./ansible/syslog-bench.yml
+
 certs:
 	bundle exec fluent-ca-generate ansible/config/certs fluentd
