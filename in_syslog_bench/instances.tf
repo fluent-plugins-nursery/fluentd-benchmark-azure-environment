@@ -24,7 +24,7 @@ resource "azurerm_virtual_machine" "linux-aggregator" {
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "${var.prefix}-aggregator-ubuntu"
+    computer_name  = "${var.prefix}-aggregator-centos75"
     admin_username = var.aggregator-username
     admin_password = var.aggregator-password
   }
@@ -63,7 +63,7 @@ resource "azurerm_virtual_machine" "linux-collector" {
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "${var.prefix}-collector-ubuntu"
+    computer_name  = "${var.prefix}-collector-centos75"
     admin_username = var.collector-username
     admin_password = var.collector-password
   }
