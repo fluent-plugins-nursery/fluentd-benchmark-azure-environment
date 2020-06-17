@@ -46,7 +46,7 @@ def net_io_metrics():
     recv_speed = (recv_bytes - last_recv_bytes) / delta
     send_speed = (send_bytes - last_send_bytes) / delta
 
-    _last_net_io_meta = (send_bytes, recv_bytes, tm)
+    _last_net_io_cache = (send_bytes, recv_bytes, tm)
     return recv_speed, send_speed
 
 
