@@ -29,8 +29,9 @@ class ProcessMetrics:
 
 
 class IOMetrics:
-    _last_net_io_cache = (0, 0, 0.0)
-    _last_disk_io_cache = (0, 0, 0.0)
+    def __init__(self):
+        self._last_disk_io_cache = (0, 0, 0.0)
+        self._last_net_io_cache  = (0, 0, 0.0)
 
     def disk_io_metrics(self):
         disk_counters = psutil.disk_io_counters()
@@ -59,7 +60,7 @@ class IOMetrics:
         recv_speed = (recv_bytes - last_recv_bytes) / delta
         send_speed = (send_bytes - last_send_bytes) / delta
 
-        self._last_net_io_meta = (send_bytes, recv_bytes, tm)
+        self._last_net_io_cache = (send_bytes, recv_bytes, tm)
         return recv_speed, send_speed
 
 
