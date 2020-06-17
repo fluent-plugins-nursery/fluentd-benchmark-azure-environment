@@ -16,7 +16,7 @@
       become: true
       copy:
         src: ./config/fluent-collector.conf
-        dest: /home/{{ ansible_env.USER }}/td-agent.conf
+        dest: /etc/td-agent/td-agent.conf
     - name: Copy certificates
       become: true
       copy:
@@ -81,4 +81,10 @@
       copy:
         src: ./config/monitor.py
         dest: /usr/local/bin/monitor
+        mode: 0755
+    - name: Copy benchmarking script
+      become: true
+      copy:
+        src: ./config/rate-syslog-bench.sh
+        dest: /usr/local/bin/rate-syslog-bench
         mode: 0755
