@@ -61,7 +61,7 @@ def memory_metrics():
             meminfo = proc.memory_full_info()
             rss = meminfo.rss + rss
             pss = meminfo.pss + pss
-            uss = meminfo.pss + pss
+            uss = meminfo.uss + uss
             vms = meminfo.vms + vms
 
     return rss, pss, uss, vms
