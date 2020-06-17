@@ -58,6 +58,7 @@
         executable: pip3
         name:
           - psutil
+        version: "5.6.7"
     - name: Add configuration for receiving rsyslog messages
       become: true
       lineinfile:
