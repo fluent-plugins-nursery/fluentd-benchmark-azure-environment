@@ -143,6 +143,12 @@ And apply provisioning playbook:
 $ make provision
 ```
 
+#### Visualization
+
+```
+$ make visualize
+```
+
 #### Teardown
 
 For destroying instances:
