@@ -123,6 +123,19 @@ $ make clean
 $ cd in_syslog_bench
 ```
 
+---
+
+**NOTE**: Users can choose RHEL 7.x for instance SKU.
+In terrafrom.tfvars:
+
+```
+environment          = "rhel"
+```
+
+should specify using RHEL for benchmarking. Otherwise, CentOS 7.5 instances will be used for benchmarking.
+
+---
+
 And then,
 
 For creating instances:
