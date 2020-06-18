@@ -12,9 +12,9 @@ resource "azurerm_virtual_machine" "linux-aggregator" {
   delete_data_disks_on_termination = true
 
   storage_image_reference {
-    publisher = "OpenLogic"
-    offer     = "CentOS"
-    sku       = "7.5"
+    publisher = var.environment == "rhel" ? "RedHat" : "OpenLogic"
+    offer     = var.environment == "rhel" ? "RHEL"   : "CentOS"
+    sku       = var.environment == "rhel" ? "7-LVM"  : "7.5"
     version   = "latest"
   }
   storage_os_disk {
@@ -24,7 +24,7 @@ resource "azurerm_virtual_machine" "linux-aggregator" {
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "${var.prefix}-aggregator-centos75"
+    computer_name  = var.environment == "rhel" ? "${var.prefix}-aggregator-rhel" : "${var.prefix}-aggregator-centos75"
     admin_username = var.aggregator-username
     admin_password = var.aggregator-password
   }
@@ -51,9 +51,9 @@ resource "azurerm_virtual_machine" "linux-collector" {
   delete_data_disks_on_termination = true
 
   storage_image_reference {
-    publisher = "OpenLogic"
-    offer     = "CentOS"
-    sku       = "7.5"
+    publisher = var.environment == "rhel" ? "RedHat" : "OpenLogic"
+    offer     = var.environment == "rhel" ? "RHEL"   : "CentOS"
+    sku       = var.environment == "rhel" ? "7-LVM"  : "7.5"
     version   = "latest"
   }
   storage_os_disk {
@@ -63,7 +63,7 @@ resource "azurerm_virtual_machine" "linux-collector" {
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "${var.prefix}-collector-centos75"
+    computer_name  = var.environment == "rhel" ? "${var.prefix}-collector-rhel" : "${var.prefix}-collector-centos75"
     admin_username = var.collector-username
     admin_password = var.collector-password
   }
