@@ -1,6 +1,7 @@
 env:
   - tf_version=0.12.18 tf_dir=winevtlog_bench ansible_recipes={aggregator,windows}
   - tf_version=0.12.18 tf_dir=in_tail_bench ansible_recipes={aggregator,collector}
+  - tf_version=0.12.18 tf_dir=in_syslog_bench ansible_recipes={aggregator,collector}
 
 language: python
 python:
