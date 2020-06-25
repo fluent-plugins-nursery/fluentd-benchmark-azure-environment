@@ -86,7 +86,7 @@ elif args.resource == 'recv_bytes':
     resource_key = "recv bytes(/sec)"
     xlabel_message = 'flow rate (lines/second)'
     ylabel_message = 'Receive Usage (Bytes)'
-    ylimit = 450000
+    ylimit = 50000
     fig_title = 'Receive Bytes Usage'
     fig_name = 'Receive_Bytes_usage.png'
     divide_base = -1
@@ -94,7 +94,7 @@ elif args.resource == 'send_bytes':
     resource_key = "send bytes(/sec)"
     xlabel_message = 'flow rate (lines/second)'
     ylabel_message = 'Send Usage (Bytes)'
-    ylimit = 3000000
+    ylimit = 1500000
     fig_title = 'Send Bytes Usage'
     fig_name = 'Send_Bytes_usage.png'
     divide_base = -1
