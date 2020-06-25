@@ -2,15 +2,15 @@
 - hosts: collector
   tasks:
     - name: Generating baseline tailing benchmark
-      shell: rate-tailing-bench -s 720 -r 0
+      shell: rate-tailing-bench -s 300 -r 0
     - name: Generating 500 lines/sec tailing benchmark
-      shell: rate-tailing-bench -s 720 -r 500
+      shell: rate-tailing-bench -s 300 -r 500
     - name: Generating 1000 lines/sec tailing benchmark
-      shell: rate-tailing-bench -s 720 -r 1000
+      shell: rate-tailing-bench -s 300 -r 1000
     - name: Generating 2000 lines/sec tailing benchmark
-      shell: rate-tailing-bench -s 720 -r 2000
+      shell: rate-tailing-bench -s 300 -r 2000
     - name: Generating 5000 lines/sec tailing benchmark
-      shell: rate-tailing-bench -s 720 -r 5000
+      shell: rate-tailing-bench -s 300 -r 5000
     - name: Find benchmarking result files
       find:
         paths: /home/{{ ansible_env.USER }}/
