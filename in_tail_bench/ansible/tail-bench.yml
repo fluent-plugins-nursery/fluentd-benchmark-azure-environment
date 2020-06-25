@@ -1,6 +1,8 @@
 ---
 - hosts: collector
   tasks:
+    - name: Generating baseline tailing benchmark
+      shell: rate-tailing-bench -s 720 -r 0
     - name: Generating 500 lines/sec tailing benchmark
       shell: rate-tailing-bench -s 720 -r 500
     - name: Generating 1000 lines/sec tailing benchmark
