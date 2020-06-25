@@ -30,7 +30,9 @@ td-agent -c ${HOME}/td-agent.conf -o td-agent.log &
 
 sleep 3
 
-dummer -c ${HOME}/dummer/dummer.conf -r $RATE &
+if [ $RATE -gt 0 ]; then
+    dummer -c ${HOME}/dummer/dummer.conf -r $RATE &
+fi
 
 python3 -u `which monitor` $STEP | tee usage-$RATE.tsv
 
