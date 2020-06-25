@@ -44,6 +44,11 @@
         name:
           - "@Development tools"
         state: present
+    - name: Install psmisc package
+      become: true
+      yum:
+        name:
+          - psmisc
     - name: Install Python libraries
       become: true
       yum:
