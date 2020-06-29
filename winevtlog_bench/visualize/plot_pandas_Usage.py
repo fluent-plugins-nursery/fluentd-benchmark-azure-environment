@@ -12,7 +12,9 @@ from ansible.inventory.manager import InventoryManager
 
 parser = argparse.ArgumentParser(description='Visualize data as plot')
 parser.add_argument('--resource',
-                    choices=['cpu_s', 'cpu_w', 'memory_s', 'memory_w',
+                    choices=['cpu_s', 'cpu_w',
+                             'private_bytes_s', 'private_bytes_w',
+                             'working_set_s', 'working_set_w',
                              'sent_bytes', 'received_bytes',
                              'disk_reads', 'disk_writes'],
                     default='cpu')
@@ -34,7 +36,23 @@ elif args.resource == 'cpu_w':
     fig_title = 'CPU Usage (Worker)'
     fig_name = 'CPU_usage_on_worker.png'
     divide_base = -1
-elif args.resource == 'memory_s':
+elif args.resource == 'private_bytes_s':
+    resource_key = '\\\\fluentd-winserv\\Process(ruby)\\Private Bytes'
+    xlabel_message = 'message length (bytes)'
+    ylabel_message = 'Private Bytes Usage (MB)'
+    ylimit = 100
+    fig_title = 'Private Bytes Usage (Supervisor)'
+    fig_name = 'Private_Bytes_usage_on_supervisor.png'
+    divide_base = 1024*1024
+elif args.resource == 'private_bytes_w':
+    resource_key = '\\\\fluentd-winserv\\Process(ruby#1)\\Private Bytes'
+    xlabel_message = 'message length (bytes)'
+    ylabel_message = 'Private Bytes (MB)'
+    ylimit = 100
+    fig_title = 'Private Bytes Usage (Worker)'
+    fig_name = 'Private_Bytes_usage_on_worker.png'
+    divide_base = 1024*1024
+elif args.resource == 'working_set_s':
     resource_key = '\\\\fluentd-winserv\\Process(ruby)\\Working Set'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'Working Set (MB)'
@@ -42,7 +60,7 @@ elif args.resource == 'memory_s':
     fig_title = 'Working Set Usage (Supervisor)'
     fig_name = 'Working_Set_usage_on_supervisor.png'
     divide_base = 1024*1024
-elif args.resource == 'memory_w':
+elif args.resource == 'working_set_w':
     resource_key = '\\\\fluentd-winserv\\Process(ruby#1)\\Working Set'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'Working Set (MB)'
