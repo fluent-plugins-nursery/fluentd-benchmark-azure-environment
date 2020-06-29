@@ -22,13 +22,20 @@ aggregator-provision:
 windows-bench:
 	ansible-playbook -i ./ansible/hosts ./ansible/windows-bench.yml
 
-visualize: visualize-cpu visualize-memory visualize-sent_bytes visualize-received_bytes visualize-disk_reads visualize-disk_writes
+visualize: visualize-cpu_s visualize-cpu_w visualize-memory_s visualize-memory_w visualize-sent_bytes visualize-received_bytes visualize-disk_reads visualize-disk_writes
 
-visualize-cpu:
-	python3 visualize/plot_pandas_Usage.py --resource cpu
 
-visualize-memory:
-	python3 visualize/plot_pandas_Usage.py --resource memory
+visualize-cpu_s:
+	python3 visualize/plot_pandas_Usage.py --resource cpu_s
+
+visualize-cpu_w:
+	python3 visualize/plot_pandas_Usage.py --resource cpu_w
+
+visualize-memory_s:
+	python3 visualize/plot_pandas_Usage.py --resource memory_s
+
+visualize-memory_w:
+	python3 visualize/plot_pandas_Usage.py --resource memory_w
 
 visualize-sent_bytes:
 	python3 visualize/plot_pandas_Usage.py --resource sent_bytes

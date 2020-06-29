@@ -12,26 +12,43 @@ from ansible.inventory.manager import InventoryManager
 
 parser = argparse.ArgumentParser(description='Visualize data as plot')
 parser.add_argument('--resource',
-                    choices=['cpu', 'memory', 'sent_bytes', 'received_bytes',
+                    choices=['cpu_s', 'cpu_w', 'memory_s', 'memory_w',
+                             'sent_bytes', 'received_bytes',
                              'disk_reads', 'disk_writes'],
                     default='cpu')
 args = parser.parse_args()
 
-if args.resource == 'cpu':
+if args.resource == 'cpu_s':
+    resource_key = '\\\\fluentd-winserv\\Process(ruby)\\% Processor Time'
+    xlabel_message = 'message length (bytes)'
+    ylabel_message = 'CPU Usage (%)'
+    ylimit = 100
+    fig_title = 'CPU Usage (Supervisor)'
+    fig_name = 'CPU_usage_on_supervisor.png'
+    divide_base = -1
+elif args.resource == 'cpu_w':
     resource_key = '\\\\fluentd-winserv\\Process(ruby#1)\\% Processor Time'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'CPU Usage (%)'
     ylimit = 100
-    fig_title = 'CPU Usage'
-    fig_name = 'CPU_usage.png'
+    fig_title = 'CPU Usage (Worker)'
+    fig_name = 'CPU_usage_on_worker.png'
     divide_base = -1
-elif args.resource == 'memory':
+elif args.resource == 'memory_s':
+    resource_key = '\\\\fluentd-winserv\\Process(ruby)\\Working Set'
+    xlabel_message = 'message length (bytes)'
+    ylabel_message = 'Working Set (MB)'
+    ylimit = 100
+    fig_title = 'Working Set Usage (Supervisor)'
+    fig_name = 'Working_Set_usage_on_supervisor.png'
+    divide_base = 1024*1024
+elif args.resource == 'memory_w':
     resource_key = '\\\\fluentd-winserv\\Process(ruby#1)\\Working Set'
     xlabel_message = 'message length (bytes)'
     ylabel_message = 'Working Set (MB)'
     ylimit = 100
-    fig_title = 'Working Set Usage'
-    fig_name = 'Working_Set_usage.png'
+    fig_title = 'Working Set Usage (Worker)'
+    fig_name = 'Working_Set_usage_on_worker.png'
     divide_base = 1024*1024
 elif args.resource == 'sent_bytes':
     resource_key = '\\\\fluentd-winserv\\Network Interface(Microsoft Hyper-V Network Adapter)\\Bytes Sent/sec'
