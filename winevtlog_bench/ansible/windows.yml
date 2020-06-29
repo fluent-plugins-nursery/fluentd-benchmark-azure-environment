@@ -1,7 +1,7 @@
 ---
 - hosts: windows
   vars:
-    td_agent_version: "3.7.1-0"
+    td_agent_version: "3.8.0-0"
     eventlog_bencher_version: "v0.4.1.0"
   tasks:
     - name: Install td-agent

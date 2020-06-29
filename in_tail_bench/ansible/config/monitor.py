@@ -10,81 +10,108 @@ parser.add_argument("steps", help="Total running seconds",
                     type=int)
 args = parser.parse_args()
 
-_last_disk_io_cache = (0, 0, 0.0)
-_last_net_io_cache = (0, 0, 0.0)
+
+class ProcessMetrics:
+    process = None
+
+    def __init__(self, process):
+        self.process = process
+
+    def memory_metrics(self):
+        meminfo = self.process.memory_full_info()
+        rss = meminfo.rss
+        vms = meminfo.vms
+
+        return rss, vms
+
+    def cpu_percent(self):
+        return self.process.cpu_percent(interval=1)
 
 
-def disk_io_metrics():
-    global _last_disk_io_cache
+class IOMetrics:
+    def __init__(self):
+        self._last_disk_io_cache = (0, 0, 0.0)
+        self._last_net_io_cache  = (0, 0, 0.0)
 
-    disk_counters = psutil.disk_io_counters()
-    tm = time.time()
+    def disk_io_metrics(self):
+        disk_counters = psutil.disk_io_counters()
+        tm = time.time()
 
-    read_bytes = disk_counters.read_bytes
-    write_bytes = disk_counters.write_bytes
+        read_bytes = disk_counters.read_bytes
+        write_bytes = disk_counters.write_bytes
 
-    last_read_bytes, last_write_bytes, last_time = _last_disk_io_cache
-    delta = tm - last_time
-    read_speed = (read_bytes - last_read_bytes) / delta
-    write_speed = (write_bytes - last_write_bytes) / delta
+        last_read_bytes, last_write_bytes, last_time = self._last_disk_io_cache
+        delta = tm - last_time
+        read_speed = (read_bytes - last_read_bytes) / delta
+        write_speed = (write_bytes - last_write_bytes) / delta
 
-    _last_disk_io_cache = (read_bytes, write_bytes, tm)
-    return write_speed, read_speed
+        self._last_disk_io_cache = (read_bytes, write_bytes, tm)
+        return write_speed, read_speed
 
+    def net_io_metrics(self):
+        net_counters = psutil.net_io_counters()
+        tm = time.time()
 
-def net_io_metrics():
-    global _last_net_io_cache
+        send_bytes = net_counters.bytes_sent
+        recv_bytes = net_counters.bytes_recv
 
-    net_counters = psutil.net_io_counters()
-    tm = time.time()
+        last_send_bytes, last_recv_bytes, last_time = self._last_net_io_cache
+        delta = tm - last_time
+        recv_speed = (recv_bytes - last_recv_bytes) / delta
+        send_speed = (send_bytes - last_send_bytes) / delta
 
-    send_bytes = net_counters.bytes_sent
-    recv_bytes = net_counters.bytes_recv
-
-    last_send_bytes, last_recv_bytes, last_time = _last_net_io_cache
-    delta = tm - last_time
-    recv_speed = (recv_bytes - last_recv_bytes) / delta
-    send_speed = (send_bytes - last_send_bytes) / delta
-
-    _last_net_io_cache = (send_bytes, recv_bytes, tm)
-    return recv_speed, send_speed
-
-
-def memory_metrics():
-    rss = 0
-    pss = 0
-    uss = 0
-    vms = 0
-
-    for proc in psutil.process_iter():
-        if proc.name() == RUBY:
-            meminfo = proc.memory_full_info()
-            rss = meminfo.rss + rss
-            pss = meminfo.pss + pss
-            uss = meminfo.uss + uss
-            vms = meminfo.vms + vms
-
-    return rss, pss, uss, vms
+        self._last_net_io_cache = (send_bytes, recv_bytes, tm)
+        return recv_speed, send_speed
 
 
-print(f"steps\tdate\t{'RSS(MB)':8}\t{'PSS(MB)':8}\
-\t{'USS(MB)':8}\t{'VMS(MB)':8}\t{'Total CPU Usage(%)':8}\
-\tread bytes(/sec)\twrite bytes(/sec)\trecv bytes(/sec)\tsend bytes(/sec)")
+print(f"steps\t{'date':16}\tread bytes(KiB/sec)\twrite bytes(KiB/sec)\t\
+recv bytes(/sec)\tsend bytes(/sec)", end='\t')
+
 steps = 1
 RUBY = "ruby"
+TD_AGENT = "td-agent"
+metrics = []
+ruby_process_count = 0
+td_agent_process_count = 0
+io_metrics = IOMetrics()
+
+for proc in psutil.process_iter():
+    if proc.name() == RUBY:
+        metric = ProcessMetrics(proc)
+        metrics.append(metric)
+        CPU = "CPU Usage(%)[Ruby#{0}]".format(ruby_process_count)
+        RSS = "RSS(MB)[Ruby#{0}]".format(ruby_process_count)
+        VMS = "VMS(MB)[Ruby#{0}]".format(ruby_process_count)
+        print(f"{CPU:8}\t{RSS:8}\t{VMS:8}", end="\t")
+        ruby_process_count = ruby_process_count + 1
+
+    if proc.name() == TD_AGENT:
+        metric = ProcessMetrics(proc)
+        metrics.append(metric)
+        CPU = "CPU Usage(%)[TD-Agent#{0}]".format(td_agent_process_count)
+        RSS = "RSS(MB)[TD-Agent#{0}]".format(td_agent_process_count)
+        VMS = "VMS(MB)[TD-Agent#{0}]".format(td_agent_process_count)
+        print(f"{CPU:8}\t{RSS:8}\t{VMS:8}", end="\t")
+        td_agent_process_count = td_agent_process_count + 1
+
+print("")
 
 while steps <= args.steps:
     now = datetime.now()
     currentTime = now.strftime("%s")
 
-    rss, pss, uss, vms = memory_metrics()
-    cpu = psutil.cpu_percent(interval=1)
-    write_speed, read_speed = disk_io_metrics()
-    recv_speed, send_speed = net_io_metrics()
+    recv_speed, send_speed = io_metrics.net_io_metrics()
+    write_speed, read_speed = io_metrics.disk_io_metrics()
     time_str = now.strftime("%Y/%m/%d %H:%M:%S")
-    print(f"{steps}\t{time_str}\t{rss /1024/1024 :8}\t{pss /1024/1024 :8}\
-\t{uss /1024/1024 :8}\t{vms /1024/1024 :8}\t{cpu:8}\
-\t{read_speed}\t{write_speed}\t{recv_speed}\t{send_speed}")
+    print(f"{steps}\t{time_str}\t{read_speed /1024 : 16}\t{write_speed /1024 : 16}\t\
+    {recv_speed: 16}\t{send_speed: 16}", end='\t')
+
+    for metric in metrics:
+        rss, vms = metric.memory_metrics()
+        cpu = metric.cpu_percent()
+        print(f"{cpu:8}\t{rss /1024/1024 :8}\t{vms /1024/1024 :8}", end='\t')
+
+    print("")
     steps = steps + 1
     while (int(currentTime) >= int(datetime.now().strftime("%s"))):
         time.sleep(0.01)

@@ -12,80 +12,89 @@ from ansible.inventory.manager import InventoryManager
 
 parser = argparse.ArgumentParser(description='Visualize data as plot')
 parser.add_argument('--resource',
-                    choices=['cpu', 'pss', 'uss', 'rss', 'vms', 'read_bytes', 'write_bytes',
+                    choices=['cpu_s', 'rss_s', 'vms_s', 'cpu_w', 'rss_w', 'vms_w',
+                             'read_bytes', 'write_bytes',
                              'recv_bytes', 'send_bytes'],
                     default='cpu')
 args = parser.parse_args()
 
-if args.resource == 'cpu':
-    resource_key = "Total CPU Usage(%)"
+if args.resource == 'cpu_s':
+    resource_key = "CPU Usage(%)[TD-Agent#0]"
     xlabel_message = 'flow rate (lines/second)'
     ylabel_message = 'CPU Usage (%)'
     ylimit = 100
-    fig_title = 'CPU Usage'
-    fig_name = 'CPU_usage.png'
+    fig_title = 'CPU Usage (Supervisor)'
+    fig_name = 'CPU_usage_on_supervisor.png'
     divide_base = -1
-elif args.resource == 'pss':
-    resource_key = "PSS(MB) "
+elif args.resource == 'rss_s':
+    resource_key = "RSS(MB)[TD-Agent#0]"
     xlabel_message = 'flow rate (lines/second)'
-    ylabel_message = 'PSS Usage (MB)'
+    ylabel_message = 'RSS Usage (MB) '
     ylimit = 100
-    fig_title = 'PSS Usage'
-    fig_name = 'PSS_usage.png'
+    fig_title = 'RSS Usage (Supervisor)'
+    fig_name = 'RSS_usage_on_supervisor.png'
     divide_base = -1
-elif args.resource == 'uss':
-    resource_key = "USS(MB) "
-    xlabel_message = 'flow rate (lines/second)'
-    ylabel_message = 'USS Usage (MB)'
-    ylimit = 100
-    fig_title = 'USS Usage'
-    fig_name = 'USS_usage.png'
-    divide_base = -1
-elif args.resource == 'rss':
-    resource_key = "RSS(MB) "
-    xlabel_message = 'flow rate (lines/second)'
-    ylabel_message = 'RSS Usage (MB)'
-    ylimit = 100
-    fig_title = 'RSS Usage'
-    fig_name = 'RSS_usage.png'
-    divide_base = -1
-elif args.resource == 'vms':
-    resource_key = "VMS(MB) "
+elif args.resource == 'vms_s':
+    resource_key = "VMS(MB)[TD-Agent#0]"
     xlabel_message = 'flow rate (lines/second)'
     ylabel_message = 'VMS Usage (MB)'
     ylimit = 1200
-    fig_title = 'VMS Usage'
-    fig_name = 'VMS_usage.png'
+    fig_title = 'VMS Usage (Supervisor)'
+    fig_name = 'VMS_usage_on_supervisor.png'
+    divide_base = -1
+elif args.resource == 'cpu_w':
+    resource_key = "CPU Usage(%)[Ruby#0]"
+    xlabel_message = 'flow rate (lines/second)'
+    ylabel_message = 'CPU Usage (%)'
+    ylimit = 100
+    fig_title = 'CPU Usage (Worker)'
+    fig_name = 'CPU_usage_on_worker.png'
+    divide_base = -1
+elif args.resource == 'rss_w':
+    resource_key = "RSS(MB)[Ruby#0]"
+    xlabel_message = 'flow rate (lines/second)'
+    ylabel_message = 'RSS Usage (MB) '
+    ylimit = 100
+    fig_title = 'RSS Usage (Worker)'
+    fig_name = 'RSS_usage_on_worker.png'
+    divide_base = -1
+elif args.resource == 'vms_w':
+    resource_key = "VMS(MB)[Ruby#0]"
+    xlabel_message = 'flow rate (lines/second)'
+    ylabel_message = 'VMS Usage (MB)'
+    ylimit = 1200
+    fig_title = 'VMS Usage (Worker)'
+    fig_name = 'VMS_usage_on_worker.png'
     divide_base = -1
 elif args.resource == 'read_bytes':
-    resource_key = "read bytes(/sec)"
+    resource_key = "read bytes(KiB/sec)"
     xlabel_message = 'flow rate (lines/second)'
     ylabel_message = 'Disk Read Usage (bytes)'
-    ylimit = 1200
+    ylimit = 2500
     fig_title = 'Disk Read Usage'
     fig_name = 'Disk_Read_usage.png'
     divide_base = -1
 elif args.resource == 'write_bytes':
-    resource_key = "write bytes(/sec)"
+    resource_key = "write bytes(KiB/sec)"
     xlabel_message = 'flow rate (lines/second)'
     ylabel_message = 'Disk Write Usage (KiB)'
-    ylimit = 1200
+    ylimit = 3500
     fig_title = 'Disk Write Usage'
     fig_name = 'Disk_Write_usage.png'
-    divide_base = 1024
+    divide_base = -1
 elif args.resource == 'recv_bytes':
     resource_key = "recv bytes(/sec)"
     xlabel_message = 'flow rate (lines/second)'
-    ylabel_message = 'Receive Usage'
-    ylimit = 10
+    ylabel_message = 'Receive Usage (Bytes)'
+    ylimit = 50000
     fig_title = 'Receive Bytes Usage'
     fig_name = 'Receive_Bytes_usage.png'
     divide_base = -1
 elif args.resource == 'send_bytes':
     resource_key = "send bytes(/sec)"
     xlabel_message = 'flow rate (lines/second)'
-    ylabel_message = 'Send Usage'
-    ylimit = 10
+    ylabel_message = 'Send Usage (Bytes)'
+    ylimit = 1500000
     fig_title = 'Send Bytes Usage'
     fig_name = 'Send_Bytes_usage.png'
     divide_base = -1
@@ -115,12 +124,14 @@ sns.set_palette('Set3')
 base_path = os.path.join(pwd, '..', "ansible", "output", collector, "home", username)
 print(base_path)
 
-rate_500 = pd.read_csv(os.path.join(base_path, 'usage-500.tsv'), sep='\t', na_values='.')
+rate_0    = pd.read_csv(os.path.join(base_path, 'usage-0.tsv'), sep='\t', na_values='.')
+rate_500  = pd.read_csv(os.path.join(base_path, 'usage-500.tsv'), sep='\t', na_values='.')
 rate_1000 = pd.read_csv(os.path.join(base_path, 'usage-1000.tsv'), sep='\t', na_values='.')
 rate_2000 = pd.read_csv(os.path.join(base_path, 'usage-2000.tsv'), sep='\t', na_values='.')
 rate_5000 = pd.read_csv(os.path.join(base_path, 'usage-5000.tsv'), sep='\t', na_values='.')
 
 df = pd.DataFrame({
+    0: rate_0[resource_key],
     500: rate_500[resource_key],
     1000: rate_1000[resource_key],
     2000: rate_2000[resource_key],
@@ -129,7 +140,8 @@ df = pd.DataFrame({
 if divide_base > 1:
     df = df.divide(divide_base)
 
-medians = {500: np.round(df[500].median(), 2),
+medians = {0: np.round(df[0].median(), 2),
+           500: np.round(df[500].median(), 2),
            1000: np.round(df[1000].median(), 2),
            2000: np.round(df[2000].median(), 2),
            5000: np.round(df[5000].median(), 2)}
@@ -139,7 +151,7 @@ print(medians)
 df_melt = pd.melt(df)
 print(df_melt.head())
 
-fig = plt.figure()
+fig = plt.figure(figsize=(8, 6))
 plt.title(fig_title)
 ax = fig.add_subplot(1, 1, 1)
 ax.set_ylim(0, ylimit)
@@ -150,7 +162,7 @@ plot.set(
 )
 
 pos = range(len(medians))
-data_range = [500, 1000, 2000, 5000]
+data_range = [0, 500, 1000, 2000, 5000]
 tick = 0
 for item in data_range:
     plot.text(tick+0.1, medians[item], medians[item],
