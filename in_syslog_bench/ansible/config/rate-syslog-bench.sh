@@ -34,6 +34,6 @@ if [ $RATE -gt 0 ]; then
     loggen --size 300 --rate ${RATE} --interval $(( 2*STEP )) 127.0.0.1 514 2> /dev/null &
 fi
 
-sudo python3 -u /usr/local/bin/monitor $STEP | tee usage-$RATE.tsv
+sudo python3.4 -u /usr/local/bin/monitor $STEP | tee usage-$RATE.tsv
 
 sudo killall -TERM td-agent
