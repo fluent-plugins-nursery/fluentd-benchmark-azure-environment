@@ -54,13 +54,13 @@
       yum:
         name:
           - python-setuptools
-          - python34-pip
-          - python34-devel
-          - python34-setuptools
+          - python36-pip
+          - python36-devel
+          - python36-setuptools
     - name: Install python3-psutil package
       become: true
       pip:
-        executable: pip3.4
+        executable: pip3.6
         name:
           - psutil
         version: "5.6.7"
