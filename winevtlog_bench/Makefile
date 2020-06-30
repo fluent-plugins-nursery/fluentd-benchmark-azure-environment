@@ -53,3 +53,6 @@ visualize-disk_reads:
 
 visualize-disk_writes:
 	python3 visualize/plot_pandas_Usage.py --resource disk_writes
+
+windows-bench-with-tailing:
+	ansible-playbook -i ./ansible/hosts ./ansible/windows-bench-with-tailing.yml

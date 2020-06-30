@@ -1,0 +1,52 @@
+---
+- hosts: windows
+  tasks:
+    - name: Run 1024 bytes message with 50 events/sec with 50 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 50 -LineRate 50
+    - name: Run 1024 bytes message with 50 events/sec with 1200 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 50 -LineRate 1200
+    - name: Run 1024 bytes message with 50 events/sec with 1500 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 50 -LineRate 1500
+    - name: Run 1024 bytes message with 50 events/sec with 2000 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 50 -LineRate 2000
+    - name: Run 1024 bytes message with 80 events/sec with 1200 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 80 -LineRate 1200
+    - name: Run 1024 bytes message with 80 events/sec with 1500 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 80 -LineRate 1500
+    - name: Run 1024 bytes message with 100 events/sec with 100 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 100 -LineRate 100
+    - name: Run 1024 bytes message with 100 events/sec with 200 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 100 -LineRate 200
+    - name: Run 1024 bytes message with 100 events/sec with 400 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 100 -LineRate 400
+    - name: Run 1024 bytes message with 100 events/sec with 800 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 100 -LineRate 800
+    - name: Run 1024 bytes message with 100 events/sec with 1000 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 100 -LineRate 1000
+    - name: Run 1024 bytes message with 120 events/sec with 200 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 120 -LineRate 200
+    - name: Run 1024 bytes message with 120 events/sec with 400 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 120 -LineRate 400
+    - name: Run 1024 bytes message with 120 events/sec with 800 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 120 -LineRate 800
+    - name: Run 1024 bytes message with 140 events/sec with 200 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 140 -LineRate 200
+    - name: Run 1024 bytes message with 140 events/sec with 400 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 140 -LineRate 400
+    - name: Run 1024 bytes message with 140 events/sec with 600 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 140 -LineRate 600
+    - name: Run 1024 bytes message with 150 events/sec with 200 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 150 -LineRate 200
+    - name: Run 1024 bytes message with 150 events/sec with 300 lines/sec benchmark
+      win_shell: C:\tools\bytes-and-tailing-bench.ps1 -Length 1024 -Total 1000 -BatchSize 150 -LineRate 300
+    - name: Find benchmarking result files
+      win_find:
+        paths: C:\tools\
+        patterns: [ '*.csv' ]
+      register: file_list
+
+    - name: fetch result files in directory
+      fetch:
+        src: C:\tools\{{ item.filename }}
+        dest: ./output
+      with_items: "{{ file_list.files }}"
