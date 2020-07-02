@@ -47,16 +47,28 @@ And apply provisioning playbook:
 $ make provision
 ```
 
-#### Execute Benchmarks
+#### Execute Windows EventLog Benchmarks
 
 ```
 $ make windows-bench
 ```
 
-#### Visualization
+#### Windows EventLog benchmark result Visualization
 
 ```
 $ make visualize
+```
+
+#### Execute Windows EventLog with flat file tailing Benchmarks
+
+```
+$ make windows-bench-with-tailing
+```
+
+#### Windows EventLog benchmark result Visualization
+
+```
+$ make visualize-tailing
 ```
 
 #### Teardown

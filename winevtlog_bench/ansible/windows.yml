@@ -9,10 +9,13 @@
         path="http://packages.treasuredata.com.s3.amazonaws.com/3/windows/td-agent-{{ td_agent_version }}-x64.msi"
         Product_Id="76dcb0b2-81ad-4a07-bf3b-1db567594171"
         arguments="/q"
-    - name: Copy collector configuration
+    - name: Copy collector configurations
       win_copy:
-        src: ./config/fluent-collector.conf
-        dest: C:\opt\td-agent\fluent-collector.conf
+        src: "./config/{{ item }}"
+        dest: "C:\\opt\\td-agent\\{{ item }}"
+      with_items:
+        - fluent-collector.conf
+        - fluent-collector-with-tailing.conf
     - name: Copy collector with tailing configuration
       win_copy:
         src: ./config/fluent-collector-with-tailing.conf
@@ -71,8 +74,11 @@
         dest: C:\tools\counters.txt
     - name: Copy benchmark scripts
       win_copy:
-        src: ./config/bytes-message-bench.ps1
-        dest: C:\tools\bytes-message-bench.ps1
+        src: "./config/{{ item }}"
+        dest: "C:\\tools\\{{ item }}"
+      with_items:
+        - bytes-message-bench.ps1
+        - bytes-and-tailing-bench.ps1
     - name: Copy socket stat script
       win_copy:
         src: ./config/socket-count.ps1
