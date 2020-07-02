@@ -56,3 +56,35 @@ visualize-disk_writes:
 
 windows-bench-with-tailing:
 	ansible-playbook -i ./ansible/hosts ./ansible/windows-bench-with-tailing.yml
+
+visualize-tailing: visualize-tailing-cpu_s visualize-tailing-cpu_w visualize-tailing-private_bytes_s visualize-tailing-private_bytes_w visualize-tailing-working_set_s visualize-tailing-working_set_w visualize-tailing-sent_bytes visualize-tailing-received_bytes visualize-tailing-disk_reads visualize-tailing-disk_writes
+
+visualize-tailing-cpu_s:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource cpu_s
+
+visualize-tailing-cpu_w:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource cpu_w
+
+visualize-tailing-private_bytes_s:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource private_bytes_s
+
+visualize-tailing-private_bytes_w:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource private_bytes_w
+
+visualize-tailing-working_set_s:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource working_set_s
+
+visualize-tailing-working_set_w:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource working_set_w
+
+visualize-tailing-sent_bytes:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource sent_bytes
+
+visualize-tailing-received_bytes:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource received_bytes
+
+visualize-tailing-disk_reads:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource disk_reads
+
+visualize-tailing-disk_writes:
+	python3 visualize/plot_pandas_tailing_Usage.py --resource disk_writes
