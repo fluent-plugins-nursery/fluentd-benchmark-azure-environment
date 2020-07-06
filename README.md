@@ -6,6 +6,7 @@ Fluentd Benchmark Azure Environment with Terraform
 ## Prerequisites
 
 * Terraform 0.12+
+* Python3 3.7+
 * Ansible 2.9+
 * make
 
@@ -18,6 +19,25 @@ Fluentd Benchmark Azure Environment with Terraform
  5. Specify user-defined variables in `terraform.tfvars` which can be copied from `terraform.tfvars.sample` and fill them for each environment (winevtlog\_bench, in\_tail\_bench).
 
 ## Usage
+
+### Prepare Python libraries
+
+```
+$ pip install -r requirements.txt
+```
+
+Or, creating virtual environment wirth venv
+
+```
+$ python3 -m venv management
+```
+
+And then,
+
+```
+$ source management/bin/activate
+$ pip install -r requirements.txt
+```
 
 ### Windows EventLog Scenario Benchmark
 
