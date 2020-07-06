@@ -6,7 +6,7 @@ Fluentd Benchmark Azure Environment with Terraform
 ## Prerequisites
 
 * Terraform 0.12+
-* Python3 3.7+
+* Python3 3.6+
 * Ansible 2.9+
 * make
 
