@@ -1,0 +1,18 @@
+---
+- hosts: collector
+  tasks:
+    - name: systemlog benchmark
+      shell: systemlog-bench -s 300
+    - name: systemlog with ignore repeated log benchmark
+      shell: systemlog-bench-with-ignore-repeated -s 300
+    - name: Find benchmarking result files
+      find:
+        paths: /home/{{ ansible_env.USER }}/
+        patterns: [ '*.tsv' ]
+      register: file_list
+
+    - name: fetch result files in directory
+      fetch:
+        src: "{{ item.path }}"
+        dest: ./output/
+      with_items: "{{ file_list.files }}"
