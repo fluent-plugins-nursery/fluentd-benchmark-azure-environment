@@ -1,0 +1,76 @@
+---
+- hosts: collector
+  vars_files:
+    - version.yml
+  tasks:
+    - name: Download td-agent
+      get_url:
+        url: "http://packages.treasuredata.com.s3.amazonaws.com/3/redhat/7/x86_64/td-agent-{{ td_agent_version }}.el7.x86_64.rpm"
+        dest: "/home/{{ ansible_env.USER }}/td-agent-{{ td_agent_version }}.el7.x86_64.rpm"
+    - name: Install td-agent
+      become: true
+      yum:
+        name: /home/{{ ansible_env.USER }}/td-agent-{{ td_agent_version }}.el7.x86_64.rpm
+        state: present
+    - name: Copy test input plugin
+      become: true
+      copy:
+        src: ./config/in_sample_systemlog.rb
+        dest: /etc/td-agent/plugin/in_sample_systemlog.rb
+    - name: Copy emitting systemlog configuration
+      become: true
+      copy:
+        src: ./config/fluent-systemlog.conf
+        dest: /home/{{ ansible_env.USER }}/fluent-systemlog.conf
+    - name: Copy emitting systemlog with ingore repeatedlog configuration
+      become: true
+      copy:
+        src: ./config/fluent-systemlog-ignore-repeated.conf
+        dest: /home/{{ ansible_env.USER }}/fluent-systemlog-ignore-repeated.conf
+    - name: Make sure a td-agent service is stopped
+      become: true
+      systemd:
+        state: stopped
+        daemon_reload: yes
+        name: td-agent
+    - name: Enable EPEL
+      become: true
+      yum:
+        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        state: present
+    - name: Install Development tools
+      become: true
+      yum:
+        name:
+          - "@Development tools"
+        state: present
+    - name: Install psmisc package
+      become: true
+      yum:
+        name:
+          - psmisc
+        state: present
+    - name: Install python3-psutil package
+      become: true
+      yum:
+        name:
+          - python36-psutil
+        state: present
+    - name: Copy monitoring script
+      become: true
+      copy:
+        src: ./config/monitor.py
+        dest: /usr/local/bin/monitor
+        mode: 0755
+    - name: Copy systemlog-bench script
+      become: true
+      copy:
+        src: ./config/systemlog-bench.sh
+        dest: /usr/local/bin/systemlog-bench
+        mode: 0755
+    - name: Copy systemlog-bench-with-ignore-repeated script
+      become: true
+      copy:
+        src: ./config/systemlog-bench-with-ignore-repeated.sh
+        dest: /usr/local/bin/systemlog-bench-with-ignore-repeated
+        mode: 0755
