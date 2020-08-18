@@ -2,9 +2,9 @@
 - hosts: collector
   tasks:
     - name: systemlog benchmark
-      shell: systemlog-bench -s 300
+      shell: systemlog-bench -s 300 -l 20 -r 500
     - name: systemlog with ignore repeated log benchmark
-      shell: systemlog-bench-with-ignore-repeated -s 300
+      shell: systemlog-bench-with-ignore-repeated -s 300 -l 20 -r 500
     - name: Find benchmarking result files
       find:
         paths: /home/{{ ansible_env.USER }}/

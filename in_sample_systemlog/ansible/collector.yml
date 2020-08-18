@@ -17,16 +17,6 @@
       copy:
         src: ./config/in_sample_systemlog.rb
         dest: /etc/td-agent/plugin/in_sample_systemlog.rb
-    - name: Copy emitting systemlog configuration
-      become: true
-      copy:
-        src: ./config/fluent-systemlog.conf
-        dest: /home/{{ ansible_env.USER }}/fluent-systemlog.conf
-    - name: Copy emitting systemlog with ingore repeatedlog configuration
-      become: true
-      copy:
-        src: ./config/fluent-systemlog-ignore-repeated.conf
-        dest: /home/{{ ansible_env.USER }}/fluent-systemlog-ignore-repeated.conf
     - name: Make sure a td-agent service is stopped
       become: true
       systemd:
