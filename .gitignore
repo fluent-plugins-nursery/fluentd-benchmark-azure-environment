@@ -11,6 +11,8 @@ env.sh
 /in_syslog_bench/vendor/
 /in_syslog_bench/.bundle
 /in_syslog_bench/Gemfile.lock
+/in_sample_systemlog/ansible/hosts
+/in_sample_systemlog/ansible/output/
 *.tfstate*
 .DS_Store
 /management
