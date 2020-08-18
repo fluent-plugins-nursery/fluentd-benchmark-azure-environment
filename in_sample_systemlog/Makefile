@@ -16,8 +16,5 @@ plan:
 collector-provision:
 	ansible-playbook -i ./ansible/hosts ./ansible/collector.yml
 
-aggregator-provision:
-	ansible-playbook -i ./ansible/hosts ./ansible/aggregator.yml
-
 systemlog-bench:
 	ansible-playbook -i ./ansible/hosts ./ansible/systemlog-bench.yml
