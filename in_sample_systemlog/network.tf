@@ -13,32 +13,6 @@ resource "azurerm_subnet" "systemlog-internal" {
   address_prefixes     = ["10.3.3.0/24"]
 }
 
-resource "azurerm_public_ip" "linux-aggregator" {
-  name                    = "${var.prefix}-aggregator-pip"
-  location                = azurerm_resource_group.fluentd-systemlog.location
-  resource_group_name     = azurerm_resource_group.fluentd-systemlog.name
-  allocation_method       = "Dynamic"
-  idle_timeout_in_minutes = 30
-
-  tags = {
-    environment = "${var.prefix}-systemlog-aggregator-pip"
-  }
-}
-
-resource "azurerm_network_interface" "linux-aggregator" {
-  name                = "${var.prefix}-aggregator-nic"
-  location            = azurerm_resource_group.fluentd-systemlog.location
-  resource_group_name = azurerm_resource_group.fluentd-systemlog.name
-
-  ip_configuration {
-    name                          = "systemlog-aggregator-nic"
-    subnet_id                     = azurerm_subnet.systemlog-internal.id
-    private_ip_address_allocation = "Static"
-    private_ip_address            = "10.3.3.4"
-    public_ip_address_id          = azurerm_public_ip.linux-aggregator.id
-  }
-}
-
 resource "azurerm_public_ip" "linux-collector" {
   name                    = "${var.prefix}-collector-pip"
   location                = azurerm_resource_group.fluentd-systemlog.location
