@@ -10,9 +10,18 @@
         paths: /home/{{ ansible_env.USER }}/
         patterns: [ '*.tsv' ]
       register: file_list
-
     - name: fetch result files in directory
       fetch:
         src: "{{ item.path }}"
         dest: ./output/
       with_items: "{{ file_list.files }}"
+    - name: Find generated configuration files
+      find:
+        paths: /home/{{ ansible_env.USER }}/
+        patterns: [ '*.conf' ]
+      register: conf_file_list
+    - name: fetch generated configuration files in directory
+      fetch:
+        src: "{{ item.path }}"
+        dest: ./output/
+      with_items: "{{ conf_file_list.files }}"
