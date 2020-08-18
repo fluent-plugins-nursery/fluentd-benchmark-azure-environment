@@ -13,6 +13,8 @@ provision: collector-provision aggregator-provision
 plan:
 	terraform plan
 
+provison: collector-provision
+
 collector-provision:
 	ansible-playbook -i ./ansible/hosts ./ansible/collector.yml
 
