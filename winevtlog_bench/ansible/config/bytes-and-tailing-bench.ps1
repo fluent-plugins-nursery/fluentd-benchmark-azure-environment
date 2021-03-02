@@ -7,6 +7,7 @@ Param(
  )
 
 $ENV:PATH="C:\opt\td-agent\embedded\bin;" + $ENV:PATH
+$ENV:PATH="C:\opt\td-agent\bin;" + $ENV:PATH
 
 cd $workdir
 
