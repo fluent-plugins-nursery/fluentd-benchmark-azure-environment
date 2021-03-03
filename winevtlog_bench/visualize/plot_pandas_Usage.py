@@ -120,7 +120,7 @@ print(base_path)
 
 length_512 = pd.read_csv(os.path.join(base_path, '512-resource-usage.csv'), sep=',', na_values='.')
 length_1024 = pd.read_csv(os.path.join(base_path, '1024-resource-usage.csv'), sep=',', na_values='.')
-length_2048 = pd.read_csv(os.path.join(base_path, '1024-resource-usage.csv'), sep=',', na_values='.')
+length_2048 = pd.read_csv(os.path.join(base_path, '2048-resource-usage.csv'), sep=',', na_values='.')
 
 df = pd.DataFrame({
     512: length_512[resource_key],
