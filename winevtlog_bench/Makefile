@@ -14,9 +14,19 @@ plan:
 provision: windows-provision aggregator-provision
 
 windows-provision:
-	ansible-playbook -i ./ansible/hosts ./ansible/windows.yml
+	ansible-playbook -i ./ansible/hosts ./ansible/windows.yml --extra-vars "local_package=no"
 
 aggregator-provision:
+	ansible-playbook -i ./ansible/hosts ./ansible/aggregator.yml
+
+# This target is used for testing modified version of local package
+local-package-provision:
+	@if [ "$(FLUENTD_LOCAL_PACKAGE)" = "" ]; then \
+		echo "Set FLUENTD_LOCAL_PACKAGE to use modified version of installer"; \
+		echo "e.g. export FLUENTD_LOCAL_PACKAGE=./config/td-agent-4.0.50-x64.msi"; \
+		exit 1; \
+	fi
+	ansible-playbook -i ./ansible/hosts ./ansible/windows.yml --extra-vars "local_package=$(FLUENTD_LOCAL_PACKAGE)"
 	ansible-playbook -i ./ansible/hosts ./ansible/aggregator.yml
 
 windows-bench:
