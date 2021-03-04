@@ -4,6 +4,11 @@
 
 This benchmark scenario is aimed to execute benchmark about the following targets.
 
+* windows-bench
+* windows-bench-with-tailing
+
+In the above benchmark scenario, the following resources are monitored.
+
 * Bytes Received usage
 * Bytes Sent usage
 * CPU usage (supervisor)
@@ -25,6 +30,67 @@ This benchmark scenario is aimed to execute benchmark about the following target
   * Collection of plot script from *.csv
 
 After executing benchmark, the result is collected under `ansible/output/*`.
+
+## Execute benchmark
+
+
+There are 3 steps to execute benchmark scenario.
+
+* provisioning -  `make`
+* benchmarking -  `make windows-bench` or `make windows-bench-with-tailing`
+* visualizing - `make visualize` or `make visualize-tailing`
+
+### Setup
+
+For creating instances:
+
+```
+$ make
+```
+
+Or, only creating instances:
+
+```
+$ make apply
+```
+
+And apply provisioning playbook:
+
+```
+$ make provision
+```
+
+#### Execute Windows EventLog Benchmarks
+
+```
+$ make windows-bench
+```
+
+#### Windows EventLog benchmark result Visualization
+
+```
+$ make visualize
+```
+
+#### Execute Windows EventLog with flat file tailing Benchmarks
+
+```
+$ make windows-bench-with-tailing
+```
+
+#### Windows EventLog benchmark result Visualization
+
+```
+$ make visualize-tailing
+```
+
+#### Teardown
+
+For destroying instances:
+
+```
+$ make clean
+```
 
 ## FAQ
 
