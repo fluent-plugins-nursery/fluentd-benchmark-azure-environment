@@ -41,63 +41,7 @@ $ pip install -r requirements.txt
 
 ### Windows EventLog Scenario Benchmark
 
-#### Setup
-
-```
-$ cd winevtlog_bench
-```
-
-And then,
-
-For creating instances:
-
-```
-$ make
-```
-
-Or, only creating instances:
-
-```
-$ make apply
-```
-
-And apply provisioning playbook:
-
-```
-$ make provision
-```
-
-#### Execute Windows EventLog Benchmarks
-
-```
-$ make windows-bench
-```
-
-#### Windows EventLog benchmark result Visualization
-
-```
-$ make visualize
-```
-
-#### Execute Windows EventLog with flat file tailing Benchmarks
-
-```
-$ make windows-bench-with-tailing
-```
-
-#### Windows EventLog benchmark result Visualization
-
-```
-$ make visualize-tailing
-```
-
-#### Teardown
-
-For destroying instances:
-
-```
-$ make clean
-```
+See [README.md](winevtlog_bench/README.md) about details.
 
 ### in\_tail Scenario Benchmark
 
