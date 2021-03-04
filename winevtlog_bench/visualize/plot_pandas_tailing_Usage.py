@@ -18,6 +18,7 @@ parser.add_argument('--resource',
                              'sent_bytes', 'received_bytes',
                              'disk_reads', 'disk_writes'],
                     default='cpu')
+parser.add_argument('--base-path', default='')
 args = parser.parse_args()
 
 if args.resource == 'cpu_s':
@@ -102,21 +103,24 @@ elif args.resource == 'disk_writes':
     divide_base = -1
 
 
-pwd = os.path.dirname(os.path.realpath(__file__))
-inventory_file_name = os.path.join(pwd, '..', 'ansible/hosts')
-data_loader = DataLoader()
-inventory = InventoryManager(loader=data_loader,
-                             sources=[inventory_file_name])
+if args.base_path == '':
+    pwd = os.path.dirname(os.path.realpath(__file__))
+    inventory_file_name = os.path.join(pwd, '..', 'ansible/hosts')
+    data_loader = DataLoader()
+    inventory = InventoryManager(loader=data_loader,
+                                 sources=[inventory_file_name])
 
-collector = inventory.get_groups_dict()['windows'][0]
-print(collector)
+    collector = inventory.get_groups_dict()['windows'][0]
+    print(collector)
+
+    base_path = os.path.join(pwd, '..', "ansible", "output", collector, "C:", "tools")
+else:
+    base_path = args.base_path
+print(base_path)
 
 sns.set(font_scale = 1.5)
 sns.set_style('whitegrid')
 sns.set_palette('Set3')
-
-base_path = os.path.join(pwd, '..', "ansible", "output", collector, "C:", "tools")
-print(base_path)
 
 events_50_appends_50 = pd.read_csv(os.path.join(base_path, '50events-50lines-resource-usage.csv'), sep=',', na_values='.', skipfooter=2, engine='python')
 events_50_appends_1200 = pd.read_csv(os.path.join(base_path, '50events-1200lines-resource-usage.csv'), sep=',', na_values='.', skipfooter=2, engine='python')
