@@ -18,6 +18,16 @@ Fluentd Benchmark Azure Environment with Terraform
  4. Change directory to target environments(winevtlog_bench/in_tail_bench).
  5. Specify user-defined variables in `terraform.tfvars` which can be copied from `terraform.tfvars.sample` and fill them for each environment (winevtlog\_bench, in\_tail\_bench).
 
+
+### Note about env.sh configuration
+
+* `ARM_SUBSCRIPTION_ID` - You can get by `az account list` if you already logged in.
+* `ARM_TENANT_ID` - You can get by `az account list` if you already logged in.
+* `ARM_CLIENT_ID` - You can get by creating service principal.
+* `ARM_CLIENT_SECRET` - You can get by creating service principal.
+
+You can create service principal by `az ad sp create-for-rbac --name FOOBAR` or something. You need to logged in as user account in beforehand.
+
 ## Usage
 
 ### Prepare Python libraries

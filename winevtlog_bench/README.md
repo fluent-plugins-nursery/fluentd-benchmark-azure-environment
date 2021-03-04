@@ -4,8 +4,8 @@
 
 This benchmark scenario is aimed to execute benchmark about the following targets.
 
-* windows-bench
-* windows-bench-with-tailing
+* windows-bench (It takes around 40 minutes)
+* windows-bench-with-tailing (It takes around 5.5 hours)
 
 In the above benchmark scenario, the following resources are monitored.
 
