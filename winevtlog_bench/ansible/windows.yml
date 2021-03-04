@@ -37,7 +37,7 @@
       register: eventlog_bencher_check
     - name: Install EventLog benchmarking tool
       win_get_url:
-        url: https://github.com/cosmo0920/EventLogBencher/releases/download/{{ eventlog_bencher_version }}/EventLogBencher.zip
+        url: https://github.com/fluent-plugins-nursery/EventLogBencher/releases/download/{{ eventlog_bencher_version }}/EventLogBencher.zip
         dest: C:\terraform\EventLogBencher.zip
       when: not eventlog_bencher_check.stat.exists
     - name: Decompress EventLog benchmark tool zip file
@@ -52,7 +52,7 @@
       register: appending_file_bencher_check
     - name: Install Appending file benchmarking tool
       win_get_url:
-        url: https://github.com/cosmo0920/EventLogBencher/releases/download/{{ eventlog_bencher_version }}/FileLoggingBencher.zip
+        url: https://github.com/fluent-plugins-nursery/EventLogBencher/releases/download/{{ eventlog_bencher_version }}/FileLoggingBencher.zip
         dest: C:\terraform\FileLoggingBencher.zip
       when: not appending_file_bencher_check.stat.exists
     - name: Decompress appending file benchmark tool zip file
