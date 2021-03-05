@@ -9,6 +9,19 @@ $ENV:PATH="C:\opt\td-agent\bin;" + $ENV:PATH
 
 cd $workdir
 
+# Stop Fluentd service if exists
+$count = (Get-Service -Name fluentdwinsvc -ErrorAction SilentlyContinue).Count
+if ($count -ge 1) {
+    Get-Service -Name fluentdwinsvc -ErrorAction SilentlyContinue | Stop-Service
+    while ($true) {
+	$count = (Get-Process -Name ruby -ErrorAction SilentlyContinue).Count
+	if ($count -eq 0) {
+            break
+	}
+	Start-Sleep 1
+    }
+}
+
 Start-Process fluentd -ArgumentList "-c", "C:\opt\td-agent\fluent-collector.conf", "-o", "C:\opt\td-agent\message-$Length-bytes.log" -NoNewWindow -PassThru
 
 while ($true) {
