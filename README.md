@@ -55,161 +55,18 @@ See [README.md](winevtlog_bench/README.md) about details.
 
 ### in\_tail Scenario Benchmark
 
-#### Setup
+See [README.md](in_tail_bench/README.md) about details.
 
-```
-$ cd in_tail_bench
-```
-
-And then,
-
-For creating instances:
-
-```
-$ make
-```
-
-Or, only creating instances:
-
-```
-$ make apply
-```
-
-And apply provisioning playbook:
-
-```
-$ make provision
-```
-
-#### Execute Benchmarks
-
-```
-$ make tail-bench
-```
-
-#### Visualization
-
-```
-$ make visualize
-```
-
-#### Teardown
-
-For destroying instances:
-
-```
-$ make clean
-```
 
 ### in\_syslog Scenario Benchmark
 
-#### Setup
+See [README.md](in_syslog_bench/README.md) about details.
 
-```
-$ cd in_syslog_bench
-```
-
----
-
-**NOTE**: Users can choose RHEL 7.x for instance SKU.
-In terrafrom.tfvars:
-
-```
-environment          = "rhel"
-```
-
-should specify using RHEL for benchmarking. Otherwise, CentOS 7.5 instances will be used for benchmarking.
-
----
-
-And then,
-
-For creating instances:
-
-```
-$ make
-```
-
-Or, only creating instances:
-
-```
-$ make apply
-```
-
-And apply provisioning playbook:
-
-```
-$ make provision
-```
-
-#### Visualization
-
-```
-$ make visualize
-```
-
-#### Teardown
-
-For destroying instances:
-
-```
-$ make clean
-```
 
 ### in\_sample_systemlog Scenario Benchmark
 
-#### Setup
+See [README.md](in_sample_systemlog/README.md) about details.
 
-```
-$ cd in_sample_systemlog
-```
-
----
-
-**NOTE**: Users can choose RHEL 7.x for instance SKU.
-In terrafrom.tfvars:
-
-```
-environment          = "rhel"
-```
-
-should specify using RHEL for benchmarking. Otherwise, CentOS 7.5 instances will be used for benchmarking.
-
----
-
-And then,
-
-For creating instances:
-
-```
-$ make
-```
-
-Or, only creating instances:
-
-```
-$ make apply
-```
-
-And apply provisioning playbook:
-
-```
-$ make provision
-```
-
-#### Visualization
-
-```
-$ make visualize
-```
-
-#### Teardown
-
-For destroying instances:
-
-```
-$ make clean
-```
 
 ## License
 
