@@ -5,7 +5,7 @@
   tasks:
     - name: Download td-agent
       get_url:
-        url: "http://packages.treasuredata.com.s3.amazonaws.com/3/redhat/7/x86_64/td-agent-{{ td_agent_version }}.el7.x86_64.rpm"
+        url: "http://packages.treasuredata.com.s3.amazonaws.com/4/redhat/7/x86_64/td-agent-{{ td_agent_version }}.el7.x86_64.rpm"
         dest: "/home/{{ ansible_env.USER }}/td-agent-{{ td_agent_version }}.el7.x86_64.rpm"
     - name: Install td-agent
       become: true

@@ -1,7 +1,7 @@
 ---
 - hosts: windows
   vars:
-    td_agent_version: "3.8.0-0"
+    td_agent_version: "4.0.1"
     eventlog_bencher_version: "v0.4.1.0"
   tasks:
     - name: Copy local modified version for testing
@@ -16,7 +16,7 @@
       when: local_package != "no"
     - name: Install td-agent
       win_package:
-        path="http://packages.treasuredata.com.s3.amazonaws.com/3/windows/td-agent-{{ td_agent_version }}-x64.msi"
+        path="http://packages.treasuredata.com.s3.amazonaws.com/4/windows/td-agent-{{ td_agent_version }}-x64.msi"
         Product_Id="76dcb0b2-81ad-4a07-bf3b-1db567594171"
         arguments="/q"
       when: local_package == "no"
