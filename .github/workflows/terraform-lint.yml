@@ -1,0 +1,35 @@
+name: Lint terraform and ansible recipe on Ubuntu
+
+on: [push, pull_request]
+
+jobs:
+  test:
+
+    name: Lint ${{ matrix.bench }}
+    runs-on: ${{ matrix.os }}
+    env:
+      tf_version: 0.12.18
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        bench: [winevtlog_bench, in_tail_bench, in_syslog_bench, in_sample_systemlog]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download terraform
+        run: wget https://releases.hashicorp.com/terraform/${{ env.tf_version }}/terraform_${{ env.tf_version }}_linux_amd64.zip -O /tmp/terraform.zip
+      - name: Install terraform
+        run: sudo unzip -f -d /usr/local/bin/ /tmp/terraform.zip
+      - name: Install ansible
+        run: sudo apt install -y ansible ansible-lint
+      - name: Copy public key
+        run: cp -f ./tests/id_ecdsa_dummy_key.pub ./azure_key/id_rsa_azure.pub
+      - name: Validate terraform
+        run: cd ${{ matrix.bench }} && cp -f terraform.tfvars.sample terraform.tfvars && terraform init && terraform validate
+      - name: Validate ansible ${{ matrix.bench }}
+        if: matrix.bench != 'winevtlog_bench'
+        run: cd ${{ matrix.bench }} && ansible-lint ansible/collector.yml && ansible-lint ansible/aggregator.yml
+      - name: Validate ansible ${{ matrix.bench }}
+        if: matrix.bench == 'winevtlog_bench'
+        run: cd ${{ matrix.bench }} && ansible-lint ansible/windows.yml && ansible-lint ansible/aggregator.yml 
