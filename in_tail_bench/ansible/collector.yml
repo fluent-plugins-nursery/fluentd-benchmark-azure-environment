@@ -10,13 +10,13 @@
       changed_when: td_agent_check_deb.rc == 1
     - name: Download td-agent
       get_url:
-        url="http://packages.treasuredata.com.s3.amazonaws.com/3/ubuntu/xenial/pool/contrib/t/td-agent/td-agent_{{ td_agent_version }}_amd64.deb"
+        url="http://packages.treasuredata.com.s3.amazonaws.com/4/ubuntu/focal/pool/contrib/t/td-agent/td-agent_{{ td_agent_version }}_amd64.deb"
         dest="/home/{{ ansible_env.USER }}/td-agent_{{ td_agent_version }}_amd64.deb"
       when: td_agent_check_deb.rc == 1
     - name: Install python-apt
       become: true
       apt:
-        name: python-apt
+        name: python3-apt
     - name: Install td-agent
       become: true
       apt:
@@ -44,10 +44,9 @@
       become: true
       apt:
         name:
-          - python-pip
-          - python-setuptools
           - python3-pip
           - python3-setuptools
+        update_cache: yes
     - name: Install dummer via rubygems
       become: true
       gem:
