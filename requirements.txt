@@ -1,4 +1,4 @@
-ansible==2.10.0
+ansible==2.10.7
 ansible-lint==4.2.0
 certifi==2020.4.5.1
 cffi==1.14.0
